@@ -32,3 +32,9 @@ Tweaker for HaruhiServer
     versionRange="[4.0.3,)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.hstweaker]]
+    modId="haruhicore"
+    mandatory=true
+    versionRange="[2.2.3,)"
+    ordering="NONE"
+    side="BOTH"
