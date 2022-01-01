@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="GNU GPLv3"
+issueTrackerURL="https://github.com/HaruhiFanClub/HSTweaker/issues"
+
+[[mods]]
+modId="hstweaker"
+version="${file.jarVersion}"
+displayName="HSTweaker"
+displayURL="https://github.com/HaruhiFanClub/HSTweaker"
+credits="Haruhifanclub"
+authors="WakelssSloth56"
+description='''
+Tweaker for HaruhiServer
+'''
+
+[[dependencies.hstweaker]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.hstweaker]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.hstweaker]]
+    modId="ahutils"
+    mandatory=true
+    versionRange="[4.0.3,)"
+    ordering="NONE"
+    side="BOTH"
