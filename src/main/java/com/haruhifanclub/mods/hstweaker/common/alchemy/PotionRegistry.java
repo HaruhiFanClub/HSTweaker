@@ -1,8 +1,8 @@
-package com.haruhifanclub.mods.hstweaker.common.potion;
+package com.haruhifanclub.mods.hstweaker.common.alchemy;
 
 import com.haruhifanclub.mods.hstweaker.HSTweaker;
-import com.haruhifanclub.mods.hstweaker.common.potion.impl.LuckPotion;
-import com.haruhifanclub.mods.hstweaker.common.potion.impl.UnluckPotion;
+import com.haruhifanclub.mods.hstweaker.common.alchemy.impl.LuckPotion;
+import com.haruhifanclub.mods.hstweaker.common.alchemy.impl.UnluckPotion;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

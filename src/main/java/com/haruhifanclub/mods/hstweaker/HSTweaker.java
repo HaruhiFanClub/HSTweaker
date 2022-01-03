@@ -1,6 +1,6 @@
 package com.haruhifanclub.mods.hstweaker;
 
-import com.haruhifanclub.mods.hstweaker.common.potion.PotionRegistry;
+import com.haruhifanclub.mods.hstweaker.common.alchemy.PotionRegistry;
 import com.haruhifanclub.mods.hstweaker.server.event.ServerEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

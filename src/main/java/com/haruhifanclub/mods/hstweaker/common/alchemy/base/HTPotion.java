@@ -1,7 +1,7 @@
-package com.haruhifanclub.mods.hstweaker.common.potion.base;
+package com.haruhifanclub.mods.hstweaker.common.alchemy.base;
 
 import java.util.function.Supplier;
-import com.haruhifanclub.mods.hstweaker.common.potion.PotionRegistry;
+import com.haruhifanclub.mods.hstweaker.common.alchemy.PotionRegistry;
 import org.auioc.mods.ahutils.api.item.HPotion;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.Potion;
