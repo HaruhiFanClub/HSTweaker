@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.haruhifanclub.mods.hstweaker.mixin",
+    "package": "com.haruhifanclub.hstweaker.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [],
     "client": [],
