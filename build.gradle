@@ -106,6 +106,7 @@ jar {
                 "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
                 "TweakOrder": 0,
                 "MixinConfigs": "hstweaker.mixin.json",
+                "HSTweaker-Version": "hstweaker-${minecraft_version}-${hstweaker_version}-${getVar('CI_VERSION')}"
         ])
     }
 }
