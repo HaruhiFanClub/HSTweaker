@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "package": "com.haruhifanclub.mods.hstweaker.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [],
+    "client": [],
+    "server": [],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "refmap": "hstweaker.mixin-refmap.json",
+    "minVersion": "0.8"
+}
