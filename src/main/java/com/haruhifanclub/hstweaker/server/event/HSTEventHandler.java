@@ -1,5 +1,7 @@
 package com.haruhifanclub.hstweaker.server.event;
 
+import org.auioc.mcmod.arnicalib.common.event.impl.PistonCheckPushableEvent;
+import com.haruhifanclub.hstweaker.feature.antiduplication.AntiDuplicationEventHandler;
 import com.haruhifanclub.hstweaker.feature.buildingworld.BuildingWorldEventHandler;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -23,6 +25,11 @@ public final class HSTEventHandler {
     @SubscribeEvent
     public static void onExplosionStart(final ExplosionEvent.Start event) {
         BuildingWorldEventHandler.onExplosionStart(event);
+    }
+
+    @SubscribeEvent
+    public static void onPistonCheckPushable(final PistonCheckPushableEvent event) {
+        AntiDuplicationEventHandler.onPistonCheckPushable(event);
     }
 
 }

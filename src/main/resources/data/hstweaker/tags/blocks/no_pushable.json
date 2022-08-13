@@ -1,0 +1,4 @@
+{
+    "replace": false,
+    "values": ["minecraft:tnt", "#minecraft:rails", "#minecraft:carpets"]
+}
