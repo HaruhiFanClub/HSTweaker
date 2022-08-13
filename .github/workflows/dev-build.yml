@@ -37,8 +37,13 @@ jobs:
                   chmod +x ./gradlew
                   ./gradlew clean build
 
+            - name: Pack client resources
+              uses: edgarrc/action-7z@v1
+              with:
+                  args: 7z a "./build/libs/hstweaker-client-resources-${{env.CI_VERSION}}.zip" ./src/main/resources/assets ./src/main/resources/pack.mcmeta
+
             - name: Upload build artifacts
               uses: actions/upload-artifact@v1
               with:
-                  name: haruhiism-${{env.MINECRAFT_VERSION}}-${{env.HSTWEAKER_VERSION}}-${{env.CI_VERSION}}
+                  name: hstweaker-${{env.MINECRAFT_VERSION}}-${{env.HSTWEAKER_VERSION}}-${{env.CI_VERSION}}
                   path: build/libs
