@@ -4,7 +4,6 @@ import static net.minecraft.commands.Commands.literal;
 import org.auioc.mcmod.arnicalib.utils.game.CommandFeedbackHelper;
 import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
-import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -31,7 +30,7 @@ public class BuildingWorldCommands {
             .then(literal("exit").executes(BuildingWorldCommands::exit))
             .build();
 
-    private static final CommandFeedbackHelper CFH = HSTCommands.createCFH("buildingworld");
+    private static final CommandFeedbackHelper CFH = HSTCommands.createCFH(BuildingWorld::i18n);
 
     private static final SimpleCommandExceptionType ALREADY_IN = new SimpleCommandExceptionType(CFH.createMessage("enter.already_in"));
     private static final SimpleCommandExceptionType NOT_IN = new SimpleCommandExceptionType(CFH.createMessage("exit.not_in"));
@@ -43,7 +42,7 @@ public class BuildingWorldCommands {
 
         CFH.sendSuccess(
             ctx, "enter_with_confirmation",
-            TextUtils.translatable(HSTweaker.i18n("buildingworld.notice")),
+            TextUtils.translatable(BuildingWorld.i18n("notice")),
             TextUtils.literal("[✔]")
                 .setStyle(
                     Style.EMPTY

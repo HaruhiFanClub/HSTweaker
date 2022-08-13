@@ -1,6 +1,7 @@
 package com.haruhifanclub.hstweaker.server.command;
 
 import static net.minecraft.commands.Commands.literal;
+import java.util.function.Function;
 import org.auioc.mcmod.arnicalib.utils.game.CommandFeedbackHelper;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.feature.buildingworld.BuildingWorldCommands;
@@ -20,6 +21,10 @@ public final class HSTCommands {
 
     public static CommandFeedbackHelper createCFH(String keyPrefix) {
         return new CommandFeedbackHelper("HST", (key) -> HSTweaker.i18n(keyPrefix + "." + key));
+    }
+
+    public static CommandFeedbackHelper createCFH(Function<String, String> i18n) {
+        return new CommandFeedbackHelper("HST", i18n);
     }
 
 }

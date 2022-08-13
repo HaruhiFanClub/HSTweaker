@@ -24,4 +24,8 @@ public final class BuildingWorld {
         return dim.equals(LEVEL_KEY);
     }
 
+    public static String i18n(String key) {
+        return HSTweaker.i18n("buildingworld." + key);
+    }
+
 }

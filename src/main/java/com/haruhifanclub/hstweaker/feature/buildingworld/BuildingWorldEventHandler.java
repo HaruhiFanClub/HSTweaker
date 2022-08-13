@@ -1,7 +1,6 @@
 package com.haruhifanclub.hstweaker.feature.buildingworld;
 
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
-import com.haruhifanclub.hstweaker.HSTweaker;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.ChatType;
@@ -31,7 +30,7 @@ public class BuildingWorldEventHandler {
         if (BuildingWorld.isThis(event.getWorld())) {
             event.setCanceled(true);
             if (event.getExplosion().getSourceMob() instanceof ServerPlayer player) {
-                player.sendMessage(TextUtils.translatable(HSTweaker.i18n("buildingworld.no_explosion")).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
+                player.sendMessage(TextUtils.translatable(BuildingWorld.i18n("no_explosion")).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
             }
         }
     }
