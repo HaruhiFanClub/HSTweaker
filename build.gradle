@@ -17,7 +17,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 group = 'com.haruhifanclub'
 archivesBaseName = 'hstweaker'
-version = "${minecraft_version}-${hstweaker_version}"
+version = "${minecraft_version}-${hstweaker_version}-${getVar('CI_VERSION')}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -106,7 +106,7 @@ jar {
                 "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
                 "TweakOrder": 0,
                 "MixinConfigs": "hstweaker.mixin.json",
-                "HSTweaker-Version": "hstweaker-${minecraft_version}-${hstweaker_version}-${getVar('CI_VERSION')}"
+                "HSTweaker-Version": "${version}"
         ])
     }
 }
