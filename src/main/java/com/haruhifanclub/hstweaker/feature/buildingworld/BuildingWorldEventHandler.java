@@ -6,30 +6,24 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 
 public class BuildingWorldEventHandler {
 
-    public static void onPlayerChangedDimension(final PlayerEvent.PlayerChangedDimensionEvent event) {
-        var player = (ServerPlayer) event.getPlayer();
-        if (player.createCommandSourceStack().hasPermission(3)) return;
-        if (BuildingWorld.isThis(event.getTo())) {
-            player.setGameMode(GameType.CREATIVE);
-        } else if (BuildingWorld.isThis(event.getFrom())) {
-            player.getInventory().clearContent();
-            player.setExperienceLevels(0);
-            player.setExperiencePoints(0);
-            player.removeAllEffects();
-            player.setGameMode(GameType.SURVIVAL);
+    public static void onEntityJoinWorld(final EntityJoinWorldEvent event) {
+        if (BuildingWorld.isThis(event.getWorld())) {
+            var entity = event.getEntity();
+            if (entity instanceof ItemEntity) event.setCanceled(true);
+            else if (entity instanceof ServerPlayer player) BuildingWorld.onEnter(player);
         }
     }
 
-    public static void onEntityJoinWorld(final EntityJoinWorldEvent event) {
-        if (BuildingWorld.isThis(event.getWorld()) && event.getEntity() instanceof ItemEntity) {
-            event.setCanceled(true);
+    public static void onEntityLeaveWorld(final EntityLeaveWorldEvent event) {
+        if (BuildingWorld.isThis(event.getWorld())) {
+            var entity = event.getEntity();
+            if (entity instanceof ServerPlayer player) BuildingWorld.onExit(player);
         }
     }
 
