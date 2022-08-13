@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -26,7 +27,11 @@ public class BuildingWorldEventHandler {
         }
     }
 
-    public static void onEntityJoinWorld(final EntityJoinWorldEvent event) {}
+    public static void onEntityJoinWorld(final EntityJoinWorldEvent event) {
+        if (BuildingWorld.isThis(event.getWorld()) && event.getEntity() instanceof ItemEntity) {
+            event.setCanceled(true);
+        }
+    }
 
     public static void onExplosionStart(final ExplosionEvent.Start event) {
         if (BuildingWorld.isThis(event.getWorld())) {
