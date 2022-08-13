@@ -7,6 +7,7 @@ import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -35,6 +36,13 @@ public final class HSTEventHandler {
         if (event.getWorld().isClientSide) return;
         BuildingWorldEventHandler.onExplosionStart(event);
     }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+        if (event.getWorld().isClientSide) return;
+        BuildingWorldEventHandler.onRightClickBlock(event);
+    }
+
 
     @SubscribeEvent
     public static void onPistonCheckPushable(final PistonCheckPushableEvent event) {
