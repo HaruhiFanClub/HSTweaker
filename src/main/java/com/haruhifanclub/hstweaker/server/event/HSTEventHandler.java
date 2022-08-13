@@ -4,6 +4,7 @@ import com.haruhifanclub.hstweaker.feature.buildingworld.BuildingWorldEventHandl
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public final class HSTEventHandler {
@@ -17,6 +18,11 @@ public final class HSTEventHandler {
     @SubscribeEvent
     public static void onPlayerChangedDimension(final PlayerEvent.PlayerChangedDimensionEvent event) {
         BuildingWorldEventHandler.onPlayerChangedDimension(event);
+    }
+
+    @SubscribeEvent
+    public static void onExplosionStart(final ExplosionEvent.Start event) {
+        BuildingWorldEventHandler.onExplosionStart(event);
     }
 
 }

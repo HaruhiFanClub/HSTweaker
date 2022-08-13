@@ -4,5 +4,6 @@
     "hstweaker.buildingworld.command.exit.success": "您已离开建筑世界",
     "hstweaker.buildingworld.command.exit.not_in": "您不在建筑世界中",
     "hstweaker.buildingworld.command.enter_with_confirmation.success": "%s§d★ 请再次确认是否要进入建筑世界：%s",
-    "hstweaker.buildingworld.notice": "§6§l▶ 建筑世界须知 ◀§r\n1、当您进入建筑世界后您将被切换为创造模式，离开后切换为生存模式。\n§e2、当您离开建筑世界时，会丢失您所有的物品、经验以及状态效果！\n"
+    "hstweaker.buildingworld.notice": "§6§l▶ 建筑世界须知 ◀§r\n1、当您进入建筑世界后您将被切换为创造模式，离开后切换为生存模式。\n§e2、当您离开建筑世界时，会丢失您所有的物品、经验以及状态效果！\n",
+    "hstweaker.buildingworld.no_explosion": "建筑世界不允许爆炸"
 }

@@ -1,8 +1,14 @@
 package com.haruhifanclub.hstweaker.feature.buildingworld;
 
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import com.haruhifanclub.hstweaker.HSTweaker;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 
 public class BuildingWorldEventHandler {
 
@@ -17,6 +23,15 @@ public class BuildingWorldEventHandler {
                 player.setExperiencePoints(0);
                 player.removeAllEffects();
                 player.setGameMode(GameType.SURVIVAL);
+            }
+        }
+    }
+
+    public static void onExplosionStart(final ExplosionEvent.Start event) {
+        if (event.getWorld().dimension().equals(BuildingWorld.LEVEL_KEY)) {
+            event.setCanceled(true);
+            if (event.getExplosion().getSourceMob() instanceof ServerPlayer player) {
+                player.sendMessage(TextUtils.translatable(HSTweaker.i18n("buildingworld.no_explosion")).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
             }
         }
     }
