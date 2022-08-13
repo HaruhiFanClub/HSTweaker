@@ -17,6 +17,7 @@ public final class HSTCommands {
         NODE.addChild(BuildingWorldCommands.NODE);
 
         dispatcher.getRoot().addChild(NODE);
+        dispatcher.register(literal("hst").redirect(NODE));
     }
 
     public static CommandFeedbackHelper createCFH(String keyPrefix) {
