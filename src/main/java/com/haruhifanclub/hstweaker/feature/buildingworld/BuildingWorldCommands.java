@@ -12,7 +12,6 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -60,7 +59,7 @@ public class BuildingWorldCommands {
 
         if (BuildingWorld.isThis(player.getLevel())) throw ALREADY_IN.create();
 
-        player.changeDimension(BuildingWorld.getLevel(), LevelUtils.createSimpleTeleporter(new BlockPos(0, 65, 0)));
+        player.changeDimension(BuildingWorld.getLevel(), LevelUtils.createSimpleTeleporter(BuildingWorld.ENTRY_POINT));
 
         CFH.sendSuccess(ctx, "enter");
 
