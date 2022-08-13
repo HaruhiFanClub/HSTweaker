@@ -16,8 +16,12 @@ public final class BuildingWorld {
         return LevelUtils.getLevel(LEVEL_KEY);
     }
 
-    public static boolean isThis(ServerLevel level) {
+    public static boolean isThis(Level level) {
         return level.dimension().equals(LEVEL_KEY);
+    }
+
+    public static boolean isThis(ResourceKey<Level> dim) {
+        return dim.equals(LEVEL_KEY);
     }
 
 }
