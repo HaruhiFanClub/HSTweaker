@@ -1,11 +1,10 @@
 package com.haruhifanclub.hstweaker.feature.buildingworld;
 
 import static net.minecraft.commands.Commands.literal;
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.StringText;
 import org.auioc.mcmod.arnicalib.utils.game.CommandFeedbackHelper;
+import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
-import com.haruhifanclub.hstweaker.server.ServerProxy;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -44,8 +43,8 @@ public class BuildingWorldCommands {
 
         CFH.sendSuccess(
             ctx, "enter_with_confirmation",
-            I18nText(HSTweaker.i18n("buildingworld.notice")),
-            StringText("[✔]")
+            TextUtils.translatable(HSTweaker.i18n("buildingworld.notice")),
+            TextUtils.literal("[✔]")
                 .setStyle(
                     Style.EMPTY
                         .withBold(true)
@@ -62,7 +61,7 @@ public class BuildingWorldCommands {
 
         if (BuildingWorld.isThis(player.getLevel())) throw ALREADY_IN.create();
 
-        player.changeDimension(BuildingWorld.getLevel(), BuildingWorld.createTeleporter(new BlockPos(0, 65, 0)));
+        player.changeDimension(BuildingWorld.getLevel(), LevelUtils.createSimpleTeleporter(new BlockPos(0, 65, 0)));
 
         CFH.sendSuccess(ctx, "enter");
 
@@ -74,9 +73,9 @@ public class BuildingWorldCommands {
 
         if (!BuildingWorld.isThis(player.getLevel())) throw NOT_IN.create();
 
-        var dim = ServerProxy.getLevel(player.getRespawnDimension());
+        var dim = LevelUtils.getLevel(player.getRespawnDimension());
         var pos = (player.getRespawnPosition() != null ? player.getRespawnPosition() : dim.getSharedSpawnPos());
-        player.changeDimension(dim, BuildingWorld.createTeleporter(pos));
+        player.changeDimension(dim, LevelUtils.createSimpleTeleporter(pos));
 
         CFH.sendSuccess(ctx, "exit");
 

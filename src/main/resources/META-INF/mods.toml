@@ -29,6 +29,6 @@ Tweaker for HaruhiServer
 [[dependencies.hstweaker]]
     modId="arnicalib"
     mandatory=true
-    versionRange="[5.3.7,)"
+    versionRange="[5.3.8,)"
     ordering="NONE"
     side="BOTH"
