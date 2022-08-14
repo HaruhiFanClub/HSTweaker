@@ -1,5 +1,6 @@
 package com.haruhifanclub.hstweaker;
 
+import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
 import com.haruhifanclub.hstweaker.server.event.HSTEventHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +19,7 @@ public class HSTweaker {
         ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (s, b) -> true));
 
         MinecraftForge.EVENT_BUS.register(HSTEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(HSTWorldEventDispatcher.class);
     }
 
     public static ResourceLocation id(String path) {

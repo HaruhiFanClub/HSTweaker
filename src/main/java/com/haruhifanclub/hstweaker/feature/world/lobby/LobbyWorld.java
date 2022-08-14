@@ -1,36 +1,44 @@
 package com.haruhifanclub.hstweaker.feature.world.lobby;
 
-import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
+import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 
-public class LobbyWorld {
+public final class LobbyWorld extends AbstractHSTWorld {
 
-    public static boolean onJoin(Entity entity, ServerLevel level) {
-        if (entity instanceof ServerPlayer player) {
-            level.setBlockAndUpdate(HSTWorlds.LOBBY.entryPoint.below(), Blocks.BEDROCK.defaultBlockState());
-            if (!player.createCommandSourceStack().hasPermission(3)) {
-                player.setGameMode(GameType.ADVENTURE);
-            }
-        }
-        return true;
+    public LobbyWorld() {
+        super("lobby");
     }
 
-    public static boolean onLeave(Entity entity, ServerLevel level) {
-        if (entity instanceof ServerPlayer player) {
-            if (!player.createCommandSourceStack().hasPermission(3)) {
-                player.setGameMode(GameType.SURVIVAL);
-            }
-        }
-        return true;
+    @Override
+    public boolean onEntityJoin(Entity entity, ServerLevel level) {
+        if (entity instanceof ItemEntity) return false;
+        else return super.onEntityJoin(entity, level);
     }
 
-    public static boolean onExplosionStart(Explosion explosion, ServerLevel level) {
-        if (explosion.getSourceMob() instanceof ServerPlayer player) HSTWorlds.LOBBY.warn(player, "no_explosion");
+    @Override
+    public void onPlayerJoin(ServerPlayer player, ServerLevel level) {
+        level.setBlockAndUpdate(entryPoint.below(), Blocks.BEDROCK.defaultBlockState());
+        if (!player.createCommandSourceStack().hasPermission(3)) {
+            player.setGameMode(GameType.ADVENTURE);
+        }
+    }
+
+    @Override
+    public void onPlayerLeave(ServerPlayer player, ServerLevel level) {
+        if (!player.createCommandSourceStack().hasPermission(3)) {
+            player.setGameMode(GameType.SURVIVAL);
+        }
+    }
+
+    @Override
+    public boolean onExplosionStart(Explosion explosion, ServerLevel level) {
+        if (explosion.getSourceMob() instanceof ServerPlayer player) warn(player, "no_explosion");
         return false;
     }
 
