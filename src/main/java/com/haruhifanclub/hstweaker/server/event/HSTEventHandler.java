@@ -2,7 +2,7 @@ package com.haruhifanclub.hstweaker.server.event;
 
 import org.auioc.mcmod.arnicalib.common.event.impl.PistonCheckPushableEvent;
 import com.haruhifanclub.hstweaker.feature.antiduplication.AntiDuplicationEventHandler;
-import com.haruhifanclub.hstweaker.feature.world.building.BuildingWorldEventHandler;
+import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +26,7 @@ public final class HSTEventHandler {
         if (event.getWorld().isClientSide) return;
         var level = (ServerLevel) event.getWorld();
         var entity = event.getEntity();
-        if (BuildingWorldEventHandler.onEntityJoinWorld(entity, level)) {
+        if (HSTWorldEventDispatcher.onJoin(entity, level)) {
         } else {
             event.setCanceled(true);
         } ;
@@ -37,7 +37,7 @@ public final class HSTEventHandler {
         if (event.getWorld().isClientSide) return;
         var level = (ServerLevel) event.getWorld();
         var entity = event.getEntity();
-        if (BuildingWorldEventHandler.onEntityLeaveWorld(entity, level)) {
+        if (HSTWorldEventDispatcher.onLeave(entity, level)) {
         } else {
             event.setCanceled(true);
         } ;
@@ -48,7 +48,7 @@ public final class HSTEventHandler {
         if (event.getWorld().isClientSide) return;
         var level = (ServerLevel) event.getWorld();
         var explosion = event.getExplosion();
-        if (BuildingWorldEventHandler.onExplosionStart(explosion, level)) {
+        if (HSTWorldEventDispatcher.onExplosionStart(explosion, level)) {
         } else {
             event.setCanceled(true);
         }
@@ -60,7 +60,7 @@ public final class HSTEventHandler {
         var level = (ServerLevel) event.getWorld();
         var player = (ServerPlayer) event.getPlayer();
         var hit = event.getHitVec();
-        if (BuildingWorldEventHandler.onRightClickBlock(player, hit, level)) {
+        if (HSTWorldEventDispatcher.onRightClickBlock(player, hit, level)) {
         } else {
             event.setCanceled(true);
         }

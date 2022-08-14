@@ -4,6 +4,7 @@ import static net.minecraft.commands.Commands.literal;
 import org.auioc.mcmod.arnicalib.utils.game.CommandFeedbackHelper;
 import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -29,7 +30,7 @@ public class BuildingWorldCommands {
             .then(literal("exit").executes(BuildingWorldCommands::exit))
             .build();
 
-    private static final CommandFeedbackHelper CFH = HSTCommands.createCFH(BuildingWorld::i18n);
+    private static final CommandFeedbackHelper CFH = HSTCommands.createCFH(HSTWorlds.BUILDING::i18n);
 
     private static final SimpleCommandExceptionType ALREADY_IN = new SimpleCommandExceptionType(CFH.createMessage("enter.already_in"));
     private static final SimpleCommandExceptionType NOT_IN = new SimpleCommandExceptionType(CFH.createMessage("exit.not_in"));
@@ -37,11 +38,11 @@ public class BuildingWorldCommands {
     private static int enterWithConfirmation(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         var player = ctx.getSource().getPlayerOrException();
 
-        if (BuildingWorld.isThis(player.getLevel())) throw ALREADY_IN.create();
+        if (HSTWorlds.BUILDING.is(player.getLevel())) throw ALREADY_IN.create();
 
         CFH.sendSuccess(
             ctx, "enter_with_confirmation",
-            TextUtils.translatable(BuildingWorld.i18n("notice")),
+            TextUtils.translatable(HSTWorlds.BUILDING.i18n("notice")),
             TextUtils.literal("[✔]")
                 .setStyle(
                     Style.EMPTY
@@ -57,9 +58,9 @@ public class BuildingWorldCommands {
     private static int enter(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         var player = ctx.getSource().getPlayerOrException();
 
-        if (BuildingWorld.isThis(player.getLevel())) throw ALREADY_IN.create();
+        if (HSTWorlds.BUILDING.is(player.getLevel())) throw ALREADY_IN.create();
 
-        player.changeDimension(BuildingWorld.getLevel(), LevelUtils.createSimpleTeleporter(BuildingWorld.ENTRY_POINT));
+        player.changeDimension(HSTWorlds.BUILDING.get(), LevelUtils.createSimpleTeleporter(HSTWorlds.BUILDING.entryPoint));
 
         CFH.sendSuccess(ctx, "enter");
 
@@ -69,7 +70,7 @@ public class BuildingWorldCommands {
     private static int exit(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         var player = ctx.getSource().getPlayerOrException();
 
-        if (!BuildingWorld.isThis(player.getLevel())) throw NOT_IN.create();
+        if (!HSTWorlds.BUILDING.is(player.getLevel())) throw NOT_IN.create();
 
         var dim = LevelUtils.getLevel(player.getRespawnDimension());
         var pos = (player.getRespawnPosition() != null ? player.getRespawnPosition() : dim.getSharedSpawnPos());
