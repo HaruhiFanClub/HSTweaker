@@ -1,4 +1,4 @@
-package com.haruhifanclub.hstweaker.feature.world.overworld;
+package com.haruhifanclub.hstweaker.feature.world.impl;
 
 import org.auioc.mcmod.arnicalib.utils.game.EntityUtils;
 import org.auioc.mcmod.arnicalib.utils.game.RandomTeleporter;
