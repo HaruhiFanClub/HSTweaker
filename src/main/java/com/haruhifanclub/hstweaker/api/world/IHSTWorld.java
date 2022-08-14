@@ -24,9 +24,9 @@ public interface IHSTWorld {
 
     default void onPlayerLeave(ServerPlayer player, ServerLevel level) {}
 
-    default void onPlayerTravelTo(ServerPlayer player, ServerLevel from) {}
+    default void onPlayerTravelledTo(ServerPlayer player, ServerLevel from) {}
 
-    default void onPlayerTravelFrom(ServerPlayer player, ServerLevel to) {}
+    default void onPlayerTravelledFrom(ServerPlayer player, ServerLevel to) {}
 
     default void onPlayerLoggedIn(ServerPlayer player, ServerLevel level) {}
 

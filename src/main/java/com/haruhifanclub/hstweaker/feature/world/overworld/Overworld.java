@@ -30,7 +30,7 @@ public class Overworld extends AbstractHSTWorld {
     }
 
     @Override
-    public void onPlayerTravelTo(ServerPlayer player, ServerLevel from) {
+    public void onPlayerTravelledTo(ServerPlayer player, ServerLevel from) {
         if (HSTWorlds.LOBBY.is(from)) randomRespawn(player);
     }
 

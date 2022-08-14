@@ -53,8 +53,8 @@ public class HSTWorldEventDispatcher {
         if (event.getPlayer() instanceof ServerPlayer player) {
             var from = event.getFrom();
             var to = event.getTo();
-            HSTWorlds.getHSTWorld(from).ifPresent((hstw) -> hstw.onPlayerTravelFrom(player, LevelUtils.getLevel(to)));
-            HSTWorlds.getHSTWorld(to).ifPresent((hstw) -> hstw.onPlayerTravelTo(player, LevelUtils.getLevel(from)));
+            HSTWorlds.getHSTWorld(from).ifPresent((hstw) -> hstw.onPlayerTravelledFrom(player, LevelUtils.getLevel(to)));
+            HSTWorlds.getHSTWorld(to).ifPresent((hstw) -> hstw.onPlayerTravelledTo(player, LevelUtils.getLevel(from)));
         }
     }
 
