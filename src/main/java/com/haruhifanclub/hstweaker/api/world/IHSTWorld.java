@@ -1,5 +1,8 @@
 package com.haruhifanclub.hstweaker.api.world;
 
+import java.util.Optional;
+import com.mojang.brigadier.tree.CommandNode;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +12,10 @@ import net.minecraft.world.phys.BlockHitResult;
 public interface IHSTWorld {
 
     ServerLevel get();
+
+    default Optional<CommandNode<CommandSourceStack>> createCommandNode() {
+        return Optional.empty();
+    }
 
     default boolean onEntityJoin(Entity entity, ServerLevel level) {
         if (entity instanceof ServerPlayer player) onPlayerJoin(player, level);

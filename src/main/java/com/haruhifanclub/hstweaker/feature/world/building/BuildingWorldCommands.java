@@ -20,7 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 public class BuildingWorldCommands {
 
     public static final CommandNode<CommandSourceStack> NODE =
-        literal("buildingworld")
+        literal(HSTWorlds.BUILDING.sid)
             .requires((source) -> source.getEntity() instanceof ServerPlayer)
             .then(
                 literal("enter").executes(BuildingWorldCommands::enterWithConfirmation)
@@ -48,7 +48,7 @@ public class BuildingWorldCommands {
                     Style.EMPTY
                         .withBold(true)
                         .withColor(ChatFormatting.GREEN)
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hstweaker buildingworld enter unsafe"))
+                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hstweaker world building enter unsafe"))
                 )
         );
 

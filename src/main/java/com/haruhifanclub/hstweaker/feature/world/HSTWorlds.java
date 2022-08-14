@@ -25,20 +25,24 @@ public final class HSTWorlds {
         return c;
     }
 
-    public static boolean isHSTWorld(ResourceKey<Level> dim) {
+    public static HashMap<ResourceKey<Level>, AbstractHSTWorld> getAll() {
+        return REGISTRY;
+    }
+
+    public static boolean is(ResourceKey<Level> dim) {
         return REGISTRY.containsKey(dim);
     }
 
-    public static boolean isHSTWorld(ServerLevel level) {
-        return isHSTWorld(level.dimension());
+    public static boolean is(ServerLevel level) {
+        return is(level.dimension());
     }
 
-    public static Optional<AbstractHSTWorld> getHSTWorld(ResourceKey<Level> dim) {
+    public static Optional<AbstractHSTWorld> get(ResourceKey<Level> dim) {
         return Optional.ofNullable(REGISTRY.get(dim));
     }
 
-    public static Optional<AbstractHSTWorld> getHSTWorld(ServerLevel level) {
-        return getHSTWorld(level.dimension());
+    public static Optional<AbstractHSTWorld> get(ServerLevel level) {
+        return get(level.dimension());
     }
 
 }

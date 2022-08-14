@@ -1,6 +1,9 @@
 package com.haruhifanclub.hstweaker.feature.world.building;
 
+import java.util.Optional;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
+import com.mojang.brigadier.tree.CommandNode;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -15,6 +18,11 @@ public final class BuildingWorld extends AbstractHSTWorld {
 
     public BuildingWorld() {
         super("building");
+    }
+
+    @Override
+    public Optional<CommandNode<CommandSourceStack>> createCommandNode() {
+        return Optional.of(BuildingWorldCommands.NODE);
     }
 
     @Override

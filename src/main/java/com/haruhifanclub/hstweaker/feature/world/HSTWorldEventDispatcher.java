@@ -20,7 +20,7 @@ public class HSTWorldEventDispatcher {
     private static void handleCancelableEvent(Event event, Level level, BiFunction<AbstractHSTWorld, ServerLevel, Boolean> action) {
         if (level.isClientSide) return;
         var serverLevel = (ServerLevel) level;
-        HSTWorlds.getHSTWorld(serverLevel).ifPresent((hstw) -> {
+        HSTWorlds.get(serverLevel).ifPresent((hstw) -> {
             if (!action.apply(hstw, serverLevel)) {
                 event.setCanceled(true);
             }
@@ -30,7 +30,7 @@ public class HSTWorldEventDispatcher {
     private static void handlePlayerEvent(PlayerEvent event, TriConsumer<AbstractHSTWorld, ServerPlayer, ServerLevel> action) {
         if (event.getPlayer() instanceof ServerPlayer player) {
             var level = (ServerLevel) player.getLevel();
-            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> action.accept(hstw, player, level));
+            HSTWorlds.get(level).ifPresent((hstw) -> action.accept(hstw, player, level));
         }
     }
 
@@ -53,8 +53,8 @@ public class HSTWorldEventDispatcher {
         if (event.getPlayer() instanceof ServerPlayer player) {
             var from = event.getFrom();
             var to = event.getTo();
-            HSTWorlds.getHSTWorld(from).ifPresent((hstw) -> hstw.onPlayerTravelledFrom(player, LevelUtils.getLevel(to)));
-            HSTWorlds.getHSTWorld(to).ifPresent((hstw) -> hstw.onPlayerTravelledTo(player, LevelUtils.getLevel(from)));
+            HSTWorlds.get(from).ifPresent((hstw) -> hstw.onPlayerTravelledFrom(player, LevelUtils.getLevel(to)));
+            HSTWorlds.get(to).ifPresent((hstw) -> hstw.onPlayerTravelledTo(player, LevelUtils.getLevel(from)));
         }
     }
 
