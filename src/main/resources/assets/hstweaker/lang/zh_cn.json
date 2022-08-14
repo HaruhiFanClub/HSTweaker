@@ -8,5 +8,8 @@
     "hstweaker.world.building.no_explosion": "§c建筑世界不允许爆炸",
     "hstweaker.world.building.block_ender_chest": "§c建筑世界不允许使用末影箱",
 
-    "hstweaker.world.lobby.no_explosion": "§c主城中不允许爆炸"
+    "hstweaker.world.lobby.no_explosion": "§c主城中不允许爆炸",
+
+    "hstweaker.world.overworld.first_login": "§a§l欢迎来到凉宫春日的世界！",
+    "hstweaker.world.overworld.random_respawn": "§c您已被随机重生，因为您未在主世界中设置重生点"
 }

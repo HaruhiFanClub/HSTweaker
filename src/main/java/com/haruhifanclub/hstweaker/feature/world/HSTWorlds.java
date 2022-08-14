@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import com.haruhifanclub.hstweaker.feature.world.building.BuildingWorld;
 import com.haruhifanclub.hstweaker.feature.world.lobby.LobbyWorld;
+import com.haruhifanclub.hstweaker.feature.world.overworld.Overworld;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -16,6 +17,7 @@ public final class HSTWorlds {
 
     public static final AbstractHSTWorld BUILDING = register(BuildingWorld::new);
     public static final AbstractHSTWorld LOBBY = register(LobbyWorld::new);
+    public static final AbstractHSTWorld OVERWORLD = register(Overworld::new);
 
     private static AbstractHSTWorld register(Supplier<AbstractHSTWorld> sup) {
         var c = sup.get();
