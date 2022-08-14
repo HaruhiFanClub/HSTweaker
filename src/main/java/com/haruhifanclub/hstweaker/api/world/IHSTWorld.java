@@ -28,9 +28,11 @@ public interface IHSTWorld {
 
     default void onPlayerTravelFrom(ServerPlayer player, ServerLevel to) {}
 
-    default void onPlayerLoggedIn(ServerPlayer player, ServerLevel to) {}
+    default void onPlayerLoggedIn(ServerPlayer player, ServerLevel level) {}
 
-    default void onPlayerLoggedOut(ServerPlayer player, ServerLevel to) {}
+    default void onPlayerLoggedOut(ServerPlayer player, ServerLevel level) {}
+
+    default void onPlayerRespawn(ServerPlayer player, ServerLevel level) {}
 
     default boolean onExplosionStart(Explosion explosion, ServerLevel level) {
         return true;

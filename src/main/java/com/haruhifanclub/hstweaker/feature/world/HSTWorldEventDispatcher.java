@@ -1,6 +1,7 @@
 package com.haruhifanclub.hstweaker.feature.world;
 
 import java.util.function.BiFunction;
+import org.apache.logging.log4j.util.TriConsumer;
 import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import net.minecraft.server.level.ServerLevel;
@@ -24,6 +25,13 @@ public class HSTWorldEventDispatcher {
                 event.setCanceled(true);
             }
         });
+    }
+
+    private static void handlePlayerEvent(PlayerEvent event, TriConsumer<AbstractHSTWorld, ServerPlayer, ServerLevel> action) {
+        if (event.getPlayer() instanceof ServerPlayer player) {
+            var level = (ServerLevel) player.getLevel();
+            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> action.accept(hstw, player, level));
+        }
     }
 
     @SubscribeEvent
@@ -52,18 +60,17 @@ public class HSTWorldEventDispatcher {
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(final PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer() instanceof ServerPlayer player) {
-            var level = (ServerLevel) player.getLevel();
-            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> hstw.onPlayerLoggedIn(player, level));
-        }
+        handlePlayerEvent(event, (hstw, player, level) -> hstw.onPlayerLoggedIn(player, level));
     }
 
     @SubscribeEvent
     public static void onPlayerLoggedOut(final PlayerEvent.PlayerLoggedOutEvent event) {
-        if (event.getPlayer() instanceof ServerPlayer player) {
-            var level = (ServerLevel) player.getLevel();
-            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> hstw.onPlayerLoggedOut(player, level));
-        }
+        handlePlayerEvent(event, (hstw, player, level) -> hstw.onPlayerLoggedOut(player, level));
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespwan(final PlayerEvent.PlayerRespawnEvent event) {
+        handlePlayerEvent(event, (hstw, player, level) -> hstw.onPlayerRespawn(player, level));
     }
 
     @SubscribeEvent
