@@ -1,8 +1,8 @@
 package com.haruhifanclub.hstweaker.api.world;
 
 import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
+import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
@@ -57,20 +57,28 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
         return level.dimension().equals(this.key);
     }
 
-    public String i18n(String key) {
-        return HSTweaker.i18n("world." + this.sid + "." + key);
+    public String getMessageKey(String key) {
+        return this.sid + "." + key;
     }
 
-    public MutableComponent createMessage(String key, boolean prefix) {
-        return TextUtils.empty().append(prefix ? HSTweaker.MESSAGE_PREFIX : TextUtils.empty()).append(TextUtils.translatable(this.i18n(key)));
+    public MutableComponent getName() {
+        return HSTWorlds.createMessageN(getMessageKey("name"));
+    }
+
+    public MutableComponent createMessageP(String key) {
+        return HSTWorlds.createMessageP(getMessageKey(key));
+    }
+
+    public MutableComponent createMessageN(String key) {
+        return HSTWorlds.createMessageN(getMessageKey(key));
     }
 
     public void sendChatMessage(ServerPlayer player, String key) {
-        player.sendMessage(createMessage(key, true), ChatType.SYSTEM, Util.NIL_UUID);
+        player.sendMessage(createMessageN(key), ChatType.SYSTEM, Util.NIL_UUID);
     }
 
     public void sendBarMessage(ServerPlayer player, String key) {
-        player.sendMessage(createMessage(key, false), ChatType.GAME_INFO, Util.NIL_UUID);
+        player.sendMessage(createMessageN(key), ChatType.GAME_INFO, Util.NIL_UUID);
     }
 
 }

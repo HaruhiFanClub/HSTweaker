@@ -1,6 +1,10 @@
 package com.haruhifanclub.hstweaker.feature.world.impl;
 
+import java.util.Optional;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
+import com.haruhifanclub.hstweaker.feature.world.HSTWorldCommands;
+import com.mojang.brigadier.tree.CommandNode;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +17,11 @@ public final class LobbyWorld extends AbstractHSTWorld {
 
     public LobbyWorld() {
         super("lobby");
+    }
+
+    @Override
+    public Optional<CommandNode<CommandSourceStack>> createCommandNode() {
+        return Optional.of(HSTWorldCommands.createNode(this, false));
     }
 
     @Override

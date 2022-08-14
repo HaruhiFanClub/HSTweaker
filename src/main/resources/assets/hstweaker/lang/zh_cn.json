@@ -1,13 +1,16 @@
 {
-    "hstweaker.world.building.command.enter.success": "您已进入建筑世界",
-    "hstweaker.world.building.command.enter.already_in": "您已处于建筑世界中",
-    "hstweaker.world.building.command.exit.success": "您已离开建筑世界",
-    "hstweaker.world.building.command.exit.not_in": "您不在建筑世界中",
-    "hstweaker.world.building.command.enter_with_confirmation.success": "%s§d★ 请再次确认是否要进入建筑世界：%s",
-    "hstweaker.world.building.notice": "§6§l▶ 建筑世界须知 ◀§r\n1、当您进入建筑世界后您将被切换为创造模式，离开后切换为生存模式。\n§e2、当您离开建筑世界时，会丢失您所有的物品、经验以及状态效果！\n",
+    "hstweaker.world._confirmation": "★ 请再次确认是否要进入%1$s：%2$s",
+    "hstweaker.world._enter": "您已进入%s",
+    "hstweaker.world._exit": "您已离开%s",
+    "hstweaker.world._not_in": "您不在%s中",
+    "hstweaker.world._already_in": "您已处于%s中",
+
+    "hstweaker.world.building.name": "建筑世界",
+    "hstweaker.world.building.notice": "§6§l▶ 建筑世界须知 ◀§r\n1、当您进入建筑世界后您将被切换为创造模式，离开后切换为生存模式。\n§e2、当您离开建筑世界时，会丢失您所有的物品、经验以及状态效果！",
     "hstweaker.world.building.no_explosion": "§c建筑世界不允许爆炸",
     "hstweaker.world.building.block_ender_chest": "§c建筑世界不允许使用末影箱",
 
+    "hstweaker.world.lobby.name": "主城",
     "hstweaker.world.lobby.no_explosion": "§c主城中不允许爆炸",
 
     "hstweaker.world.overworld.first_login": "§a§l欢迎来到凉宫春日的世界！",

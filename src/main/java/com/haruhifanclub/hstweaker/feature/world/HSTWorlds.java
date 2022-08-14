@@ -3,10 +3,13 @@ package com.haruhifanclub.hstweaker.feature.world;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Supplier;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
+import com.haruhifanclub.hstweaker.feature.world.impl.BuildingWorld;
 import com.haruhifanclub.hstweaker.feature.world.impl.LobbyWorld;
 import com.haruhifanclub.hstweaker.feature.world.impl.Overworld;
-import com.haruhifanclub.hstweaker.feature.world.impl.building.BuildingWorld;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -43,6 +46,26 @@ public final class HSTWorlds {
 
     public static Optional<AbstractHSTWorld> get(ServerLevel level) {
         return get(level.dimension());
+    }
+
+    public static MutableComponent createMessage(String key, boolean prefix, Object args) {
+        return TextUtils.empty().append(prefix ? HSTweaker.MESSAGE_PREFIX : TextUtils.empty()).append(TextUtils.translatable(HSTweaker.i18n("world." + key), args));
+    }
+
+    public static MutableComponent createMessageP(String key) {
+        return createMessage(key, true, TextUtils.NO_ARGS);
+    }
+
+    public static MutableComponent createMessageP(String key, Object args) {
+        return createMessage(key, true, args);
+    }
+
+    public static MutableComponent createMessageN(String key) {
+        return createMessage(key, false, TextUtils.NO_ARGS);
+    }
+
+    public static MutableComponent createMessageN(String key, Object args) {
+        return createMessage(key, false, args);
     }
 
 }
