@@ -1,7 +1,10 @@
 package com.haruhifanclub.hstweaker;
 
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
 import com.haruhifanclub.hstweaker.server.event.HSTEventHandler;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
@@ -29,6 +32,8 @@ public class HSTweaker {
     public static String i18n(String key) {
         return MOD_ID + "." + key;
     }
+
+    public static final MutableComponent MESSAGE_PREFIX = TextUtils.literal("[HST] ").withStyle(ChatFormatting.AQUA);
 
 }
 
