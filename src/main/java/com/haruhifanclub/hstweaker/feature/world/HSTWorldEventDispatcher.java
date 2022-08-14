@@ -51,6 +51,22 @@ public class HSTWorldEventDispatcher {
     }
 
     @SubscribeEvent
+    public static void onPlayerLoggedIn(final PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getPlayer() instanceof ServerPlayer player) {
+            var level = (ServerLevel) player.getLevel();
+            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> hstw.onPlayerLoggedIn(player, level));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(final PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getPlayer() instanceof ServerPlayer player) {
+            var level = (ServerLevel) player.getLevel();
+            HSTWorlds.getHSTWorld(level).ifPresent((hstw) -> hstw.onPlayerLoggedOut(player, level));
+        }
+    }
+
+    @SubscribeEvent
     public static void onExplosionStart(final ExplosionEvent.Start event) {
         handleCancelableEvent(
             event, event.getWorld(), (hstw, level) -> hstw.onExplosionStart(event.getExplosion(), level)
