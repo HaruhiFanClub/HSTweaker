@@ -2,7 +2,7 @@ package com.haruhifanclub.hstweaker.server.event;
 
 import org.auioc.mcmod.arnicalib.common.event.impl.PistonCheckPushableEvent;
 import com.haruhifanclub.hstweaker.feature.antiduplication.AntiDuplicationEventHandler;
-import com.haruhifanclub.hstweaker.feature.buildingworld.BuildingWorldEventHandler;
+import com.haruhifanclub.hstweaker.feature.world.building.BuildingWorldEventHandler;
 import com.haruhifanclub.hstweaker.server.command.HSTCommands;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

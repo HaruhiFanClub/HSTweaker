@@ -1,4 +1,4 @@
-package com.haruhifanclub.hstweaker.feature.buildingworld;
+package com.haruhifanclub.hstweaker.feature.world.building;
 
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import net.minecraft.ChatFormatting;
