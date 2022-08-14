@@ -30,13 +30,13 @@ public final class BuildingWorld {
         return dim.equals(LEVEL_KEY);
     }
 
-    public static void onEnter(ServerPlayer player) {
-        getLevel().setBlockAndUpdate(ENTRY_POINT.below(), Blocks.BEDROCK.defaultBlockState());
+    public static void onEnter(ServerPlayer player, ServerLevel level) {
+        level.setBlockAndUpdate(ENTRY_POINT.below(), Blocks.BEDROCK.defaultBlockState());
         if (player.createCommandSourceStack().hasPermission(3)) return;
         player.setGameMode(GameType.CREATIVE);
     }
 
-    public static void onExit(ServerPlayer player) {
+    public static void onExit(ServerPlayer player, ServerLevel level) {
         if (player.createCommandSourceStack().hasPermission(3)) return;
         player.getInventory().clearContent();
         player.setExperienceLevels(0);

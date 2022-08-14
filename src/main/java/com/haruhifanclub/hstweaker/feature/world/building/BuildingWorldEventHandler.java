@@ -22,14 +22,14 @@ public class BuildingWorldEventHandler {
     public static boolean onEntityJoinWorld(Entity entity, ServerLevel level) {
         if (BuildingWorld.isThis(level)) {
             if (entity instanceof ItemEntity) return false;
-            else if (entity instanceof ServerPlayer player) BuildingWorld.onEnter(player);
+            else if (entity instanceof ServerPlayer player) BuildingWorld.onEnter(player, level);
         }
         return true;
     }
 
     public static boolean onEntityLeaveWorld(Entity entity, ServerLevel level) {
         if (BuildingWorld.isThis(level)) {
-            if (entity instanceof ServerPlayer player) BuildingWorld.onExit(player);
+            if (entity instanceof ServerPlayer player) BuildingWorld.onExit(player, level);
         }
         return true;
     }
