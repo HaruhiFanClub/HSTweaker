@@ -81,4 +81,9 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
         player.sendMessage(createMessageN(key), ChatType.GAME_INFO, Util.NIL_UUID);
     }
 
+    // TODO: isOp method is not suitable in AbstractHSTWorld class
+    protected static boolean isOp(ServerPlayer player) {
+        return player.getServer().getPlayerList().isOp(player.getGameProfile());
+    }
+
 }

@@ -33,14 +33,14 @@ public final class LobbyWorld extends AbstractHSTWorld {
     @Override
     public void onPlayerJoin(ServerPlayer player, ServerLevel level) {
         level.setBlockAndUpdate(entryPoint.below(), Blocks.BEDROCK.defaultBlockState());
-        if (!player.createCommandSourceStack().hasPermission(3)) {
+        if (!isOp(player)) {
             player.setGameMode(GameType.ADVENTURE);
         }
     }
 
     @Override
     public void onPlayerLeave(ServerPlayer player, ServerLevel level) {
-        if (!player.createCommandSourceStack().hasPermission(3)) {
+        if (!isOp(player)) {
             player.setGameMode(GameType.SURVIVAL);
         }
     }

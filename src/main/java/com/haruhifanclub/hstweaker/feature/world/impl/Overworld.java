@@ -35,7 +35,7 @@ public class Overworld extends AbstractHSTWorld {
     }
 
     private static void randomRespawn(ServerPlayer player) {
-        if (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD)) {
+        if (!isOp(player) && (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD))) {
             RandomTeleporter.teleport(player, 10, 10);
             HSTWorlds.OVERWORLD.sendBarMessage(player, "random_respawn");
         }

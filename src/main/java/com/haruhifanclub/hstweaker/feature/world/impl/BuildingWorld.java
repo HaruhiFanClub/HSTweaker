@@ -35,14 +35,14 @@ public final class BuildingWorld extends AbstractHSTWorld {
     @Override
     public void onPlayerJoin(ServerPlayer player, ServerLevel level) {
         level.setBlockAndUpdate(entryPoint.below(), Blocks.BEDROCK.defaultBlockState());
-        if (!player.createCommandSourceStack().hasPermission(3)) {
+        if (!isOp(player)) {
             player.setGameMode(GameType.CREATIVE);
         }
     }
 
     @Override
     public void onPlayerLeave(ServerPlayer player, ServerLevel level) {
-        if (!player.createCommandSourceStack().hasPermission(3)) {
+        if (!isOp(player)) {
             player.getInventory().clearContent();
             player.setExperienceLevels(0);
             player.setExperiencePoints(0);
