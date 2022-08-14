@@ -61,8 +61,16 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
         return HSTweaker.i18n("world." + this.sid + "." + key);
     }
 
-    public void warn(ServerPlayer player, String key) {
-        player.sendMessage(TextUtils.translatable(this.i18n(key)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
+    public void warn(ServerPlayer player, String key, ChatType type) {
+        player.sendMessage(TextUtils.translatable(this.i18n(key)).withStyle(ChatFormatting.RED), type, Util.NIL_UUID);
+    }
+
+    public void warnChat(ServerPlayer player, String key) {
+        warn(player, key, ChatType.SYSTEM);
+    }
+
+    public void warnBar(ServerPlayer player, String key) {
+        warn(player, key, ChatType.GAME_INFO);
     }
 
 }

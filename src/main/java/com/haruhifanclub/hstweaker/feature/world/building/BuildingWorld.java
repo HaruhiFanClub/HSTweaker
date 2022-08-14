@@ -44,7 +44,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
 
     @Override
     public boolean onExplosionStart(Explosion explosion, ServerLevel level) {
-        if (explosion.getSourceMob() instanceof ServerPlayer player) warn(player, "no_explosion");
+        if (explosion.getSourceMob() instanceof ServerPlayer player) warnChat(player, "no_explosion");
         return false;
     }
 
@@ -53,7 +53,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
         if (hit.getType() == HitResult.Type.BLOCK) {
             var block = level.getBlockState(hit.getBlockPos());
             if (block.is(Blocks.ENDER_CHEST)) {
-                warn(player, "block_ender_chest");
+                warnChat(player, "block_ender_chest");
                 return false;
             }
         }
