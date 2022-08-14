@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class HSTWorldCommands {
 
-    public static final CommandNode<CommandSourceStack> NODE = literal("world").build();
+    public static final CommandNode<CommandSourceStack> NODE = literal("world").requires((source) -> source.getEntity() instanceof ServerPlayer).build();
 
     public static void register(final CommandNode<CommandSourceStack> parent) {
         HSTWorlds.getAll().forEach((key, hstw) -> hstw.createCommandNode().ifPresent((node) -> NODE.addChild(node)));
@@ -27,7 +27,7 @@ public class HSTWorldCommands {
     private static final DynamicCommandExceptionType NOT_IN = new DynamicCommandExceptionType((hstw) -> HSTWorlds.createMessageP("_not_in", ((AbstractHSTWorld) hstw).getName()));
 
     public static CommandNode<CommandSourceStack> createNode(final AbstractHSTWorld hstw, boolean safeEnter) {
-        final var node = literal(hstw.sid).requires((source) -> source.getEntity() instanceof ServerPlayer).build();
+        final var node = literal(hstw.sid).build();
 
         node.addChild(literal("exit").executes(createExitHandler(hstw)).build());
 
