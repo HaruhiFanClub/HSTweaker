@@ -17,7 +17,7 @@ public class Overworld extends AbstractHSTWorld {
 
     @Override
     public void onPlayerLoggedIn(ServerPlayer player, ServerLevel level) {
-        var totalWorldTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.TOTAL_WORLD_TIME));
+        var totalWorldTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
         if (totalWorldTime < 20) {
             EntityUtils.teleportTo(player, HSTWorlds.LOBBY.key, HSTWorlds.LOBBY.entryPoint);
             sendChatMessage(player, "first_login");
