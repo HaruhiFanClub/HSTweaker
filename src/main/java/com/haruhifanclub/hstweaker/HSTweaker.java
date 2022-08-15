@@ -6,8 +6,7 @@ import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import org.auioc.mcmod.arnicalib.utils.java.VersionUtils;
-import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
-import com.haruhifanclub.hstweaker.server.event.HSTEventHandler;
+import com.haruhifanclub.hstweaker.server.event.HSTEventHandlers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -32,8 +31,7 @@ public class HSTweaker {
     public HSTweaker() {
         ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (s, b) -> true));
 
-        MinecraftForge.EVENT_BUS.register(HSTEventHandler.class);
-        MinecraftForge.EVENT_BUS.register(HSTWorldEventDispatcher.class);
+        HSTEventHandlers.register(MinecraftForge.EVENT_BUS);
     }
 
     static {

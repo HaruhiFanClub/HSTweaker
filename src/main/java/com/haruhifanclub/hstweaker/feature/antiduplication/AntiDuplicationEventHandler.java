@@ -13,6 +13,7 @@ public class AntiDuplicationEventHandler {
 
     @SubscribeEvent
     public static void onPistonCheckPushable(final PistonCheckPushableEvent event) {
+        if (event.getWorld().isClientSide()) return;
         if (event.getState().is(NO_PUSHABLE_TAG)) {
             event.setCanceled(true);
         }
