@@ -1,9 +1,7 @@
 package com.haruhifanclub.hstweaker.server.command;
 
 import static net.minecraft.commands.Commands.literal;
-import java.util.function.Function;
 import org.auioc.mcmod.arnicalib.common.command.impl.VersionCommand;
-import org.auioc.mcmod.arnicalib.utils.game.CommandFeedbackHelper;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.feature.op.HSTOpCommand;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldCommands;
@@ -22,14 +20,6 @@ public final class HSTCommands {
 
         dispatcher.getRoot().addChild(NODE);
         dispatcher.register(literal("hst").redirect(NODE));
-    }
-
-    public static CommandFeedbackHelper createCFH(String keyPrefix) {
-        return new CommandFeedbackHelper(HSTweaker.MESSAGE_PREFIX, (key) -> HSTweaker.i18n(keyPrefix + "." + key));
-    }
-
-    public static CommandFeedbackHelper createCFH(Function<String, String> i18n) {
-        return new CommandFeedbackHelper(HSTweaker.MESSAGE_PREFIX, i18n);
     }
 
 }

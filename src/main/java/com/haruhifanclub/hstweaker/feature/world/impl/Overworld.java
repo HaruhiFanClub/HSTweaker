@@ -1,6 +1,7 @@
 package com.haruhifanclub.hstweaker.feature.world.impl;
 
 import org.auioc.mcmod.arnicalib.utils.game.EntityUtils;
+import org.auioc.mcmod.arnicalib.utils.game.PlayerUtils;
 import org.auioc.mcmod.arnicalib.utils.game.RandomTeleporter;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
@@ -35,7 +36,7 @@ public class Overworld extends AbstractHSTWorld {
     }
 
     private static void randomRespawn(ServerPlayer player) {
-        if (!isOp(player) && (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD))) {
+        if (!PlayerUtils.isOp(player) && (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD))) {
             RandomTeleporter.teleport(player, 10, 10);
             HSTWorlds.OVERWORLD.sendBarMessage(player, "random_respawn");
         }

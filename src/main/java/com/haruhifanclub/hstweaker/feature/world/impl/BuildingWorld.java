@@ -1,6 +1,7 @@
 package com.haruhifanclub.hstweaker.feature.world.impl;
 
 import java.util.Optional;
+import org.auioc.mcmod.arnicalib.utils.game.PlayerUtils;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldCommands;
 import com.mojang.brigadier.tree.CommandNode;
@@ -35,14 +36,14 @@ public final class BuildingWorld extends AbstractHSTWorld {
     @Override
     public void onPlayerJoin(ServerPlayer player, ServerLevel level) {
         this.createEntryPlatform(level);
-        if (!isOp(player)) {
+        if (!PlayerUtils.isOp(player)) {
             player.setGameMode(GameType.CREATIVE);
         }
     }
 
     @Override
     public void onPlayerLeave(ServerPlayer player, ServerLevel level) {
-        if (!isOp(player)) {
+        if (!PlayerUtils.isOp(player)) {
             player.getInventory().clearContent();
             player.setExperienceLevels(0);
             player.setExperiencePoints(0);
