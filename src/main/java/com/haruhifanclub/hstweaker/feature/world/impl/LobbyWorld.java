@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Blocks;
 
 public final class LobbyWorld extends AbstractHSTWorld {
 
@@ -32,7 +31,7 @@ public final class LobbyWorld extends AbstractHSTWorld {
 
     @Override
     public void onPlayerJoin(ServerPlayer player, ServerLevel level) {
-        level.setBlockAndUpdate(entryPoint.below(), Blocks.BEDROCK.defaultBlockState());
+        this.createEntryPlatform(level);
         if (!isOp(player)) {
             player.setGameMode(GameType.ADVENTURE);
         }

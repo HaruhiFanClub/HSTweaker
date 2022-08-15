@@ -5,6 +5,7 @@ import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AbstractHSTWorld implements IHSTWorld {
 
@@ -55,6 +58,18 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
 
     public boolean is(Level level) {
         return level.dimension().equals(this.key);
+    }
+
+    protected void createEntryPlatform(ServerLevel level) {
+        MutableBlockPos pos = this.entryPoint.mutable();
+        for (int x = -2; x <= 2; ++x) {
+            for (int z = -2; z <= 2; ++z) {
+                for (int y = -1; y < 3; ++y) {
+                    BlockState block = y > -1 ? Blocks.AIR.defaultBlockState() : ((x == 0 && z == 0) ? Blocks.BEDROCK.defaultBlockState() : Blocks.STONE.defaultBlockState());
+                    level.setBlockAndUpdate(pos.set(this.entryPoint).move(x, y, z), block);
+                }
+            }
+        }
     }
 
     public String getMessageKey(String key) {
