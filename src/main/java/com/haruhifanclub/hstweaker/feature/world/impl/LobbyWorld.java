@@ -47,7 +47,7 @@ public final class LobbyWorld extends AbstractHSTWorld {
 
     @Override
     public boolean onExplosionStart(Explosion explosion, ServerLevel level) {
-        if (explosion.getSourceMob() instanceof ServerPlayer player) sendBarMessage(player, "no_explosion");
+        if (explosion.getSourceMob() instanceof ServerPlayer player) this.msgh.sendGameInfo(player, "no_explosion");
         return false;
     }
 

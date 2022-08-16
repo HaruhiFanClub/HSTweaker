@@ -23,11 +23,11 @@ public class HSTWorldCommands {
         parent.addChild(NODE);
     }
 
-    private static final DynamicCommandExceptionType ALREADY_IN = new DynamicCommandExceptionType((hstw) -> HSTWorlds.createMessageP("_already_in", ((AbstractHSTWorld) hstw).getName()));
-    private static final DynamicCommandExceptionType NOT_IN = new DynamicCommandExceptionType((hstw) -> HSTWorlds.createMessageP("_not_in", ((AbstractHSTWorld) hstw).getName()));
+    private static final DynamicCommandExceptionType ALREADY_IN = new DynamicCommandExceptionType((hstw) -> HSTWorlds.createMessage("_already_in", ((AbstractHSTWorld) hstw).getDisplayName()));
+    private static final DynamicCommandExceptionType NOT_IN = new DynamicCommandExceptionType((hstw) -> HSTWorlds.createMessage("_not_in", ((AbstractHSTWorld) hstw).getDisplayName()));
 
     public static CommandNode<CommandSourceStack> createNode(final AbstractHSTWorld hstw, boolean safeEnter) {
-        final var node = literal(hstw.sid).build();
+        final var node = literal(hstw.getPath()).build();
 
         node.addChild(literal("exit").executes(createExitHandler(hstw)).build());
 
@@ -55,7 +55,7 @@ public class HSTWorldCommands {
             var pos = (player.getRespawnPosition() != null ? player.getRespawnPosition() : dim.getSharedSpawnPos());
             player.changeDimension(dim, LevelUtils.createSimpleTeleporter(pos));
 
-            ctx.getSource().sendSuccess(HSTWorlds.createMessageP("_exit", hstw.getName()), false);
+            ctx.getSource().sendSuccess(HSTWorlds.createMessage("_exit", hstw.getDisplayName()), false);
 
             return Command.SINGLE_SUCCESS;
         };
@@ -69,7 +69,7 @@ public class HSTWorldCommands {
 
             player.changeDimension(hstw.get(), LevelUtils.createSimpleTeleporter(hstw.entryPoint));
 
-            ctx.getSource().sendSuccess(HSTWorlds.createMessageP("_enter", hstw.getName()), false);
+            ctx.getSource().sendSuccess(HSTWorlds.createMessage("_enter", hstw.getDisplayName()), false);
 
             return Command.SINGLE_SUCCESS;
         };
@@ -82,17 +82,17 @@ public class HSTWorldCommands {
             if (hstw.is(player.getLevel())) throw ALREADY_IN.create(hstw);
 
 
-            ctx.getSource().sendSuccess(hstw.createMessageP("notice"), false);
+            ctx.getSource().sendSuccess(hstw.msgh.create("notice", true), false);
             ctx.getSource().sendSuccess(
                 TextUtils.translatable(
                     HSTweaker.i18n("world._confirmation"),
-                    hstw.getName(),
+                    hstw.getDisplayName(),
                     TextUtils.literal("[✔]")
                         .setStyle(
                             Style.EMPTY
                                 .withBold(true)
                                 .withColor(ChatFormatting.GREEN)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hstweaker world " + hstw.sid + " enter unsafe"))
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hstweaker world " + hstw.getPath() + " enter unsafe"))
                         )
                 ).withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD), false
             );

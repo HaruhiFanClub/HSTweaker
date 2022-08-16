@@ -1,17 +1,14 @@
 package com.haruhifanclub.hstweaker.api.world;
 
 import org.auioc.mcmod.arnicalib.utils.game.LevelUtils;
+import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
 import com.haruhifanclub.hstweaker.HSTweaker;
-import com.haruhifanclub.hstweaker.feature.world.HSTWorlds;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,27 +17,23 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
 
     public static final BlockPos DEFAULT_ENTRY_POINT = new BlockPos(0, 65, 0);
 
-    public final String sid;
-    public final ResourceLocation id;
     public final ResourceKey<Level> key;
     public final BlockPos entryPoint;
-
-    public AbstractHSTWorld(String sid, BlockPos entryPoint) {
-        this.sid = sid;
-        this.id = HSTweaker.id(sid);
-        this.key = LevelUtils.createKey(this.id);
-        this.entryPoint = entryPoint;
-    }
-
-    public AbstractHSTWorld(String id) {
-        this(id, DEFAULT_ENTRY_POINT);
-    }
+    public final MessageHelper msgh;
 
     public AbstractHSTWorld(ResourceKey<Level> key, BlockPos entryPoint) {
         this.key = key;
-        this.id = key.location();
-        this.sid = this.id.getPath();
         this.entryPoint = entryPoint;
+        var messageKey = "world." + this.getPath() + ".";
+        this.msgh = new MessageHelper(HSTweaker.MESSAGE_PREFIX, (k) -> HSTweaker.i18n(messageKey + k));
+    }
+
+    public AbstractHSTWorld(String name, BlockPos entryPoint) {
+        this(LevelUtils.createKey(HSTweaker.id(name)), entryPoint);
+    }
+
+    public AbstractHSTWorld(String name) {
+        this(name, DEFAULT_ENTRY_POINT);
     }
 
     public AbstractHSTWorld(ResourceKey<Level> key) {
@@ -72,28 +65,16 @@ public abstract class AbstractHSTWorld implements IHSTWorld {
         }
     }
 
-    public String getMessageKey(String key) {
-        return this.sid + "." + key;
+    public ResourceLocation getLevelKey() {
+        return this.key.location();
     }
 
-    public MutableComponent getName() {
-        return HSTWorlds.createMessageN(getMessageKey("name"));
+    public MutableComponent getDisplayName() {
+        return this.msgh.create("name", false);
     }
 
-    public MutableComponent createMessageP(String key) {
-        return HSTWorlds.createMessageP(getMessageKey(key));
-    }
-
-    public MutableComponent createMessageN(String key) {
-        return HSTWorlds.createMessageN(getMessageKey(key));
-    }
-
-    public void sendChatMessage(ServerPlayer player, String key) {
-        player.sendMessage(createMessageN(key), ChatType.SYSTEM, Util.NIL_UUID);
-    }
-
-    public void sendBarMessage(ServerPlayer player, String key) {
-        player.sendMessage(createMessageN(key), ChatType.GAME_INFO, Util.NIL_UUID);
+    public String getPath() {
+        return this.getLevelKey().getPath().replace("/", ".");
     }
 
 }
