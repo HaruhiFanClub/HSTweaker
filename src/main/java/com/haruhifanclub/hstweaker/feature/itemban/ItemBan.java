@@ -18,7 +18,7 @@ public class ItemBan {
     protected static boolean isBanned(ServerPlayer player, ItemStack stack) {
         if (PlayerUtils.isOp(player)) return false;
         if (stack.is(BANNED_ITEM_TAG)) {
-            player.sendMessage(MSGH.create("ban", true, stack.getDisplayName()), Util.NIL_UUID);
+            player.sendMessage(MSGH.create("ban", new Object[] {stack.getDisplayName()}, true), Util.NIL_UUID);
             return true;
         }
         return false;
