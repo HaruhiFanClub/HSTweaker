@@ -17,6 +17,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class HSTWorldEventDispatcher {
 
+    static {
+        HSTWorlds.logInfo("Register world event dispatcher");
+    }
+
     private static void handleCancelableEvent(Event event, Level level, BiFunction<AbstractHSTWorld, ServerLevel, Boolean> action) {
         if (level.isClientSide) return;
         var serverLevel = (ServerLevel) level;

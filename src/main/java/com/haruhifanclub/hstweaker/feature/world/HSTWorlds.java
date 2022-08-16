@@ -1,8 +1,11 @@
 package com.haruhifanclub.hstweaker.feature.world;
 
+import static com.haruhifanclub.hstweaker.HSTweaker.LOGGER;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Supplier;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
@@ -16,6 +19,7 @@ import net.minecraft.world.level.Level;
 
 public final class HSTWorlds {
 
+    public static final Marker MARKER = LogUtil.getMarker(HSTWorlds.class);
     public static final MessageHelper MSGH = new MessageHelper(HSTweaker.MESSAGE_PREFIX, (k) -> HSTweaker.i18n("world." + k));
 
     private static final HashMap<ResourceKey<Level>, AbstractHSTWorld> REGISTRY = new HashMap<ResourceKey<Level>, AbstractHSTWorld>();
@@ -27,6 +31,7 @@ public final class HSTWorlds {
     private static AbstractHSTWorld register(Supplier<AbstractHSTWorld> sup) {
         var c = sup.get();
         REGISTRY.put(c.key, c);
+        logInfo("Register HSTWorld of level " + c.getLevelKey());
         return c;
     }
 
@@ -51,7 +56,15 @@ public final class HSTWorlds {
     }
 
     public static MutableComponent createMessage(String key, Object... args) {
-        return MSGH.create("_exit", args, true);
+        return MSGH.create(key, args, true);
+    }
+
+    public static void logInfo(String message) {
+        LOGGER.info(MARKER, message);
+    }
+
+    public static void logWarn(String message) {
+        LOGGER.warn(MARKER, message);
     }
 
 }
