@@ -18,5 +18,8 @@
 
     "hstweaker.itemban.ban": "§c物品%s§c已被封禁",
 
-    "hstweaker.anti.going_through_bedrock": "§c你不能穿越基岩"
+    "hstweaker.anti.going_through_bedrock": "§c你不能穿越基岩",
+
+    "hstweaker.op.play_time.get": "玩家游戏时间",
+    "hstweaker.op.play_time.set": "已将玩家%1$s的游戏时间设置为%2$s"
 }
