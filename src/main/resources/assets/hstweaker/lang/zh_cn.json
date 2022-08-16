@@ -16,5 +16,7 @@
     "hstweaker.world.overworld.first_login": "§a§l欢迎来到凉宫春日的世界！",
     "hstweaker.world.overworld.random_respawn": "§c您已被随机重生，因为您未在主世界中设置重生点",
 
-    "hstweaker.itemban.ban": "物品%s已被封禁"
+    "hstweaker.itemban.ban": "物品%s已被封禁",
+
+    "hstweaker.anti.going_through_bedrock": "§c你不能穿越基岩"
 }
