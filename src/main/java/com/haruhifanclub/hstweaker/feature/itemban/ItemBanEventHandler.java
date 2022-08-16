@@ -22,7 +22,7 @@ public class ItemBanEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerCommands(final PlayerContainerEvent.Close event) {
+    public static void onContainerClose(final PlayerContainerEvent.Close event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
             if (event.getContainer() instanceof InventoryMenu) {
                 Inventory inv = player.getInventory();
