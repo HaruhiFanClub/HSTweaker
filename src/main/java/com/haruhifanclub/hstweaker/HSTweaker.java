@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.utils.LogUtil;
+import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import org.auioc.mcmod.arnicalib.utils.java.VersionUtils;
 import com.haruhifanclub.hstweaker.server.event.HSTEventHandlers;
@@ -50,6 +51,7 @@ public class HSTweaker {
     }
 
     public static final MutableComponent MESSAGE_PREFIX = TextUtils.literal("[HST] ").withStyle(ChatFormatting.AQUA);
+    public static final MessageHelper MSGH = new MessageHelper(MESSAGE_PREFIX, HSTweaker::i18n);
 
 }
 
