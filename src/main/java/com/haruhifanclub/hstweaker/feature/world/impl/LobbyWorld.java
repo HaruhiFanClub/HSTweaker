@@ -8,10 +8,12 @@ import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public final class LobbyWorld extends AbstractHSTWorld {
 
@@ -28,6 +30,12 @@ public final class LobbyWorld extends AbstractHSTWorld {
     public boolean onEntityJoin(Entity entity, ServerLevel level) {
         if (entity instanceof ItemEntity) return false;
         else return super.onEntityJoin(entity, level);
+    }
+
+    @Override
+    public boolean onPlayerDamage(ServerPlayer player, DamageSource source, ServerLevel level, LivingDamageEvent event) {
+        if (!source.isBypassInvul()) return false;
+        else return true;
     }
 
     @Override

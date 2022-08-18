@@ -5,9 +5,12 @@ import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public interface IHSTWorld {
 
@@ -27,9 +30,18 @@ public interface IHSTWorld {
         return true;
     }
 
+    default boolean onLivingDamage(LivingEntity living, DamageSource source, ServerLevel level, LivingDamageEvent event) {
+        if (living instanceof ServerPlayer player) return onPlayerDamage(player, source, level, event);
+        return true;
+    }
+
     default void onPlayerJoin(ServerPlayer player, ServerLevel level) {}
 
     default void onPlayerLeave(ServerPlayer player, ServerLevel level) {}
+
+    default boolean onPlayerDamage(ServerPlayer player, DamageSource source, ServerLevel level, LivingDamageEvent event) {
+        return true;
+    }
 
     default void onPlayerTravelledTo(ServerPlayer player, ServerLevel from) {}
 

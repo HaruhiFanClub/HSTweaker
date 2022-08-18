@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -49,6 +50,13 @@ public class HSTWorldEventDispatcher {
     public static void onEntityLeaveWorld(final EntityLeaveWorldEvent event) {
         handleCancelableEvent(
             event, event.getWorld(), (hstw, level) -> hstw.onEntityLeave(event.getEntity(), level)
+        );
+    }
+
+    @SubscribeEvent
+    public static void onLivingDamage(final LivingDamageEvent event) {
+        handleCancelableEvent(
+            event, event.getEntity().getLevel(), (hstw, level) -> hstw.onLivingDamage(event.getEntityLiving(), event.getSource(), level, event)
         );
     }
 
