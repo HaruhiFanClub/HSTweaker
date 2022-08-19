@@ -44,6 +44,7 @@ jobs:
                   ./sync.sh
               env:
                   SERVER_HOST: ${{secrets.SERVER_HOST}}
+                  SERVER_SSH_PORT: 22
                   SERVER_SSH_USERNAME: ${{secrets.SERVER_SSH_USERNAME}}
                   SERVER_SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_PRIVATE_KEY}}
                   SYNC_SCRIPT_URL: ${{secrets.SYNC_SCRIPT_URL}}
