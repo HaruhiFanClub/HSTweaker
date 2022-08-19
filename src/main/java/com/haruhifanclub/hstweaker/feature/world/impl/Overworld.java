@@ -25,7 +25,7 @@ public class Overworld extends AbstractHSTWorld {
     public void onPlayerLoggedIn(ServerPlayer player, ServerLevel level) {
         var totalWorldTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
         if (totalWorldTime < 20) {
-            LOGGER.info(MARKER, "%s first logged in", player);
+            LOGGER.info(MARKER, "{} first logged in", player.getGameProfile().getName());
             EntityUtils.teleportTo(player, HSTWorlds.LOBBY.key, HSTWorlds.LOBBY.entryPoint);
             this.msgh.sendChatMessage(player, "first_login");
         }
@@ -43,7 +43,7 @@ public class Overworld extends AbstractHSTWorld {
 
     private void randomRespawn(ServerPlayer player) {
         if (!PlayerUtils.isOp(player) && (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD))) {
-            LOGGER.info(MARKER, "Random respawn player %s", player);
+            LOGGER.info(MARKER, "Random respawn player {}", player.getGameProfile().getName());
             RandomTeleporter.teleport(player, player.blockPosition(), 256, true, 16);
             this.msgh.sendGameInfo(player, "random_respawn");
         }

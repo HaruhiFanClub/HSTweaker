@@ -1,6 +1,9 @@
 package com.haruhifanclub.hstweaker.api.world;
 
+import static com.haruhifanclub.hstweaker.HSTweaker.LOGGER;
 import java.util.Optional;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +16,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public interface IHSTWorld {
+
+    public static final Marker MARKER = LogUtil.getMarker(IHSTWorld.class);
 
     ServerLevel get();
 
@@ -35,9 +40,13 @@ public interface IHSTWorld {
         return true;
     }
 
-    default void onPlayerJoin(ServerPlayer player, ServerLevel level) {}
+    default void onPlayerJoin(ServerPlayer player, ServerLevel level) {
+        LOGGER.info(MARKER, "Player {} joined {}", player.getGameProfile().getName(), level.toString());
+    }
 
-    default void onPlayerLeave(ServerPlayer player, ServerLevel level) {}
+    default void onPlayerLeave(ServerPlayer player, ServerLevel level) {
+        LOGGER.info(MARKER, "Player {} left {}", player.getGameProfile().getName(), level.toString());
+    }
 
     default boolean onPlayerDamage(ServerPlayer player, DamageSource source, ServerLevel level, LivingDamageEvent event) {
         return true;
