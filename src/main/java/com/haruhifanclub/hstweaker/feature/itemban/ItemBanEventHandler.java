@@ -14,7 +14,7 @@ public class ItemBanEventHandler {
     public static void onSelectedItemInventoryTick(final ItemInventoryTickEvent.Selected event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
             var stack = event.getItemStack();
-            if (ItemBan.isBanned(player, stack)) {
+            if (ItemBan.shouldBan(player, stack)) {
                 stack.setCount(0);
                 event.setCanceled(true);
             }
@@ -27,7 +27,7 @@ public class ItemBanEventHandler {
             if (event.getContainer() instanceof InventoryMenu) {
                 Inventory inv = player.getInventory();
                 for (int i = 0, s = inv.getContainerSize(); i < s; ++i) {
-                    if (ItemBan.isBanned(player, inv.getItem(i))) {
+                    if (ItemBan.shouldBan(player, inv.getItem(i))) {
                         inv.setItem(i, ItemStack.EMPTY);
                     }
                 }

@@ -1,6 +1,9 @@
 package com.haruhifanclub.hstweaker.feature.world.impl;
 
+import static com.haruhifanclub.hstweaker.HSTweaker.LOGGER;
 import java.util.Optional;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import org.auioc.mcmod.arnicalib.utils.game.PlayerUtils;
 import com.haruhifanclub.hstweaker.api.world.AbstractHSTWorld;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldCommands;
@@ -17,6 +20,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public final class BuildingWorld extends AbstractHSTWorld {
+
+    public static final Marker MARKER = LogUtil.getMarker(Overworld.class).addParents(BuildingWorld.MARKER);
 
     public BuildingWorld() {
         super("building");
@@ -39,6 +44,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
         if (!PlayerUtils.isOp(player)) {
             player.setGameMode(GameType.CREATIVE);
         }
+        LOGGER.info(MARKER, "%s entered level %s", player, this.key);
     }
 
     @Override
@@ -50,6 +56,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
             player.removeAllEffects();
             player.setGameMode(GameType.SURVIVAL);
         }
+        LOGGER.info(MARKER, "%s exited level %s", player, this.key);
     }
 
     @Override
