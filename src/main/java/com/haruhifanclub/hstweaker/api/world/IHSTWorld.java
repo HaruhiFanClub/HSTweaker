@@ -41,11 +41,11 @@ public interface IHSTWorld {
     }
 
     default void onPlayerJoin(ServerPlayer player, ServerLevel level) {
-        LOGGER.info(MARKER, "Player {} joined {}", player.getGameProfile().getName(), level.toString());
+        LOGGER.info(MARKER, "Player {} joined level {}", player.getGameProfile().getName(), level.dimension().location());
     }
 
     default void onPlayerLeave(ServerPlayer player, ServerLevel level) {
-        LOGGER.info(MARKER, "Player {} left {}", player.getGameProfile().getName(), level.toString());
+        LOGGER.info(MARKER, "Player {} left level {}", player.getGameProfile().getName(), level.dimension().location());
     }
 
     default boolean onPlayerDamage(ServerPlayer player, DamageSource source, ServerLevel level, LivingDamageEvent event) {

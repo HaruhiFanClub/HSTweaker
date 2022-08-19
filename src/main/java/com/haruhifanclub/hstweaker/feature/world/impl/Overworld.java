@@ -32,6 +32,12 @@ public class Overworld extends AbstractHSTWorld {
     }
 
     @Override
+    public void onPlayerJoin(ServerPlayer player, ServerLevel level) {}
+
+    @Override
+    public void onPlayerLeave(ServerPlayer player, ServerLevel level) {}
+
+    @Override
     public void onPlayerRespawn(ServerPlayer player, ServerLevel level) {
         randomRespawn(player);
     }

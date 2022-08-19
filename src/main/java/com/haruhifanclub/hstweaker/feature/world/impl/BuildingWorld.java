@@ -44,6 +44,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
         if (!PlayerUtils.isOp(player)) {
             player.setGameMode(GameType.CREATIVE);
         }
+        super.onPlayerJoin(player, level);
     }
 
     @Override
@@ -55,6 +56,7 @@ public final class BuildingWorld extends AbstractHSTWorld {
             player.removeAllEffects();
             player.setGameMode(GameType.SURVIVAL);
         }
+        super.onPlayerLeave(player, level);
     }
 
     @Override

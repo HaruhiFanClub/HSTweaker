@@ -49,6 +49,7 @@ public final class LobbyWorld extends AbstractHSTWorld {
         if (!PlayerUtils.isOp(player)) {
             player.setGameMode(GameType.ADVENTURE);
         }
+        super.onPlayerJoin(player, level);
     }
 
     @Override
@@ -56,6 +57,7 @@ public final class LobbyWorld extends AbstractHSTWorld {
         if (!PlayerUtils.isOp(player)) {
             player.setGameMode(GameType.SURVIVAL);
         }
+        super.onPlayerLeave(player, level);
     }
 
     @Override
