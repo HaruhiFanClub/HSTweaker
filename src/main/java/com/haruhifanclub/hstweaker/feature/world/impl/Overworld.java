@@ -49,9 +49,15 @@ public class Overworld extends AbstractHSTWorld {
 
     private void randomRespawn(ServerPlayer player) {
         if (!PlayerUtils.isOp(player) && (player.getRespawnPosition() == null || !player.getRespawnDimension().equals(Level.OVERWORLD))) {
-            LOGGER.info(MARKER, "Random respawn player {}", player.getGameProfile().getName());
-            RandomTeleporter.teleport(player, player.blockPosition(), 256, true, 16);
-            this.msgh.sendGameInfo(player, "random_respawn");
+            RandomTeleporter.findSafePosition(player, player.blockPosition(), 256, true, 16)
+                .ifPresentOrElse(
+                    (pos) -> {
+                        EntityUtils.teleportTo(player, pos);
+                        LOGGER.info(MARKER, "Random respawn player {} at {}", player.getGameProfile().getName(), pos.toString());
+                        this.msgh.sendGameInfo(player, "random_respawn");
+                    },
+                    () -> LOGGER.warn(MARKER, "Failed to find a safe random respawn position for player {}", player.getGameProfile().getName())
+                );
         }
     }
 
