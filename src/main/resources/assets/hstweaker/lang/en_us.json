@@ -1,0 +1,25 @@
+{
+    "hstweaker.world._confirmation": "★ Please reconfirm that you want to enter %1$s：%2$s",
+    "hstweaker.world._enter": "You are now in %s",
+    "hstweaker.world._exit": "You are now leaving %s",
+    "hstweaker.world._not_in": "You are not in %s",
+    "hstweaker.world._already_in": "You are already in room %s",
+
+    "hstweaker.world.building.name": "Building World",
+    "hstweaker.world.building.notice": "",
+    "hstweaker.world.building.no_explosion": "§cExplosions are not allowed in the building world",
+    "hstweaker.world.building.block_ender_chest": "§cEnder chest is not allowed in the building world",
+
+    "hstweaker.world.lobby.name": "Lobby",
+    "hstweaker.world.lobby.no_explosion": "§cExplosions are not allowed in the lobby",
+
+    "hstweaker.world.overworld.first_login": "§a§lWelcome to HaruhiServer",
+    "hstweaker.world.overworld.random_respawn": "§cYou have been randomly respawned because you have not set a respawn point in the overworlds",
+
+    "hstweaker.itemban.ban": "§cItem %s§c is banned",
+
+    "hstweaker.anti.going_through_bedrock": "§cYou can't get through the bedrock",
+
+    "hstweaker.op.play_time.get": "Play time:",
+    "hstweaker.op.play_time.set": "Player %1$s's game time has been set to %2$s"
+}
