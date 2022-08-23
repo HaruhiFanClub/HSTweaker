@@ -8,11 +8,13 @@ import org.auioc.mcmod.arnicalib.utils.game.CommandUtils;
 import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.CommandNode;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.selector.EntitySelector;
@@ -40,7 +42,14 @@ public class HSTOpCommand {
                                 )
                         )
                 )
-        ).build();
+        )
+        .then(
+            literal("ability")
+                .then(literal("invulnerable").executes(HSTOpCommand::switchAbility))
+                .then(literal("mayfly").executes(HSTOpCommand::switchAbility))
+                .then(literal("instabuild").executes(HSTOpCommand::switchAbility))
+        )
+        .build();
 
     public static void register(final CommandNode<CommandSourceStack> parent) {
         parent.addChild(NODE);
@@ -86,6 +95,19 @@ public class HSTOpCommand {
         );
         if (result > 0) ctx.getSource().sendSuccess(MSGH.create("play_time.set", new Object[] {TextUtils.join(playerNames), stat.format(time)}, true), false);
         return result;
+    }
+
+    private static int switchAbility(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        final var abilities = ctx.getSource().getPlayerOrException().getAbilities();
+
+        var name = ((LiteralCommandNode<CommandSourceStack>) (ctx.getNodes().get(ctx.getNodes().size() - 1).getNode())).getLiteral();
+        switch (name) {
+            case "invulnerable" -> abilities.invulnerable = !abilities.invulnerable;
+            case "instabuild" -> abilities.instabuild = !abilities.instabuild;
+            case "mayfly" -> abilities.mayfly = !abilities.mayfly;
+        }
+
+        return Command.SINGLE_SUCCESS;
     }
 
 }
