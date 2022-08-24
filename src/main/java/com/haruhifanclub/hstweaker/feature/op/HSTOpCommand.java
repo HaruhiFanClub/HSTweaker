@@ -10,6 +10,7 @@ import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -21,6 +22,7 @@ import net.minecraft.commands.arguments.selector.EntitySelector;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 
 public class HSTOpCommand {
@@ -49,12 +51,17 @@ public class HSTOpCommand {
                 .then(literal("mayfly").executes(HSTOpCommand::switchAbility))
                 .then(literal("instabuild").executes(HSTOpCommand::switchAbility))
         )
+        .then(gameModeNode())
         .build();
 
     public static void register(final CommandNode<CommandSourceStack> parent) {
         parent.addChild(NODE);
     }
 
+
+    private static String getLastLiteral(CommandContext<CommandSourceStack> ctx) {
+        return ((LiteralCommandNode<CommandSourceStack>) (ctx.getNodes().get(ctx.getNodes().size() - 1).getNode())).getLiteral();
+    }
 
     private static int forEachPlayer(CommandContext<CommandSourceStack> ctx, FailableConsumer<ServerPlayer, CommandSyntaxException> action) throws CommandSyntaxException {
         var players = EntityArgument.getPlayers(ctx, "players");
@@ -100,14 +107,29 @@ public class HSTOpCommand {
     private static int switchAbility(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         final var abilities = ctx.getSource().getPlayerOrException().getAbilities();
 
-        var name = ((LiteralCommandNode<CommandSourceStack>) (ctx.getNodes().get(ctx.getNodes().size() - 1).getNode())).getLiteral();
-        switch (name) {
+        switch (getLastLiteral(ctx)) {
             case "invulnerable" -> abilities.invulnerable = !abilities.invulnerable;
             case "instabuild" -> abilities.instabuild = !abilities.instabuild;
             case "mayfly" -> abilities.mayfly = !abilities.mayfly;
         }
 
         return Command.SINGLE_SUCCESS;
+    }
+
+    private static LiteralArgumentBuilder<CommandSourceStack> gameModeNode() {
+        var node = literal("gamemode");
+
+        for (var mode : GameType.values()) {
+            node.then(
+                literal(mode.getName())
+                    .executes(
+                        (ctx) -> ctx.getSource().getPlayerOrException()
+                            .setGameMode(GameType.byName(getLastLiteral(ctx))) ? 1 : 0
+                    )
+            );
+        }
+
+        return node;
     }
 
 }
