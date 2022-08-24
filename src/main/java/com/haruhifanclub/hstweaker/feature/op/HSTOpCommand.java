@@ -3,9 +3,11 @@ package com.haruhifanclub.hstweaker.feature.op;
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 import java.util.ArrayList;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.auioc.mcmod.arnicalib.utils.game.CommandUtils;
 import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
+import org.auioc.mcmod.arnicalib.utils.game.PlayerUtils;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.mojang.brigadier.Command;
@@ -19,9 +21,11 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.selector.EntitySelector;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 
@@ -36,13 +40,7 @@ public class HSTOpCommand {
                 .then(
                     argument("players", EntityArgument.players())
                         .then(literal("get").executes(HSTOpCommand::getPlayTime))
-                        .then(
-                            literal("set")
-                                .then(
-                                    argument("time", IntegerArgumentType.integer(0))
-                                        .executes(HSTOpCommand::setPlayTime)
-                                )
-                        )
+                        .then(literal("set").then(argument("time", IntegerArgumentType.integer(0)).executes(HSTOpCommand::setPlayTime)))
                 )
         )
         .then(
@@ -52,6 +50,23 @@ public class HSTOpCommand {
                 .then(literal("instabuild").executes(HSTOpCommand::switchAbility))
         )
         .then(gameModeNode())
+        .then(
+            literal("item")
+                .then(literal("duplicate").executes((ctx) -> mainHandAction(ctx, (player, stack) -> PlayerUtils.giveItem(player, stack.copy()))))
+                .then(literal("fillStack").executes((ctx) -> mainHandAction(ctx, (player, stack) -> stack.setCount(stack.getMaxStackSize()))))
+                .then(literal("fix").executes((ctx) -> mainHandAction(ctx, (player, stack) -> {
+                    if (stack.isDamaged()) stack.setDamageValue(0);
+                })))
+                .then(
+                    literal("share").executes(
+                        (ctx) -> mainHandAction(
+                            ctx,
+                            (player, stack) -> player.getServer().getPlayerList()
+                                .broadcastMessage(TextUtils.translatable("chat.type.text", player.getDisplayName(), stack.getDisplayName()), ChatType.CHAT, player.getUUID())
+                        )
+                    )
+                )
+        )
         .build();
 
     public static void register(final CommandNode<CommandSourceStack> parent) {
@@ -73,6 +88,16 @@ public class HSTOpCommand {
         return argument("players", EntityArgument.players()).executes((ctx) -> forEachPlayer(ctx, action));
     }
 
+    private static int playerAction(CommandContext<CommandSourceStack> ctx, FailableConsumer<ServerPlayer, CommandSyntaxException> action) throws CommandSyntaxException {
+        action.accept(ctx.getSource().getPlayerOrException());
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int mainHandAction(CommandContext<CommandSourceStack> ctx, FailableBiConsumer<ServerPlayer, ItemStack, CommandSyntaxException> action) throws CommandSyntaxException {
+        return playerAction(ctx, (player) -> {
+            if (!player.getMainHandItem().isEmpty()) action.accept(player, player.getMainHandItem());
+        });
+    }
 
     private static int getPlayTime(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         var stat = Stats.CUSTOM.get(Stats.PLAY_TIME);
