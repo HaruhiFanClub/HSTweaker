@@ -3,6 +3,7 @@ package com.haruhifanclub.hstweaker.server.event;
 import com.haruhifanclub.hstweaker.feature.anti.AntiDuplication;
 import com.haruhifanclub.hstweaker.feature.anti.AntiGoingThroughBedrock;
 import com.haruhifanclub.hstweaker.feature.itemban.ItemBanEventHandler;
+import com.haruhifanclub.hstweaker.feature.itemshare.ItemShareEventHandler;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -14,7 +15,8 @@ public final class HSTEventHandlers {
             HSTWorldEventDispatcher.class,
             AntiDuplication.class,
             AntiGoingThroughBedrock.class,
-            ItemBanEventHandler.class
+            ItemBanEventHandler.class,
+            ItemShareEventHandler.class,
         };
         for (var c : a) forgeEventBus.register(c);
     }

@@ -21,7 +21,6 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.selector.EntitySelector;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -57,15 +56,6 @@ public class HSTOpCommand {
                 .then(literal("fix").executes((ctx) -> mainHandAction(ctx, (player, stack) -> {
                     if (stack.isDamaged()) stack.setDamageValue(0);
                 })))
-                .then(
-                    literal("share").executes(
-                        (ctx) -> mainHandAction(
-                            ctx,
-                            (player, stack) -> player.getServer().getPlayerList()
-                                .broadcastMessage(TextUtils.translatable("chat.type.text", player.getDisplayName(), stack.getDisplayName()), ChatType.CHAT, player.getUUID())
-                        )
-                    )
-                )
         )
         .build();
 
