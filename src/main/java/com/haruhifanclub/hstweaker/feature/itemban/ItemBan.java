@@ -24,7 +24,7 @@ public class ItemBan {
         if (PlayerUtils.isOp(player)) return false;
         if (stack.is(BANNED_ITEM_TAG)) {
             player.sendMessage(MSGH.create("ban", new Object[] {stack.getDisplayName()}, true), Util.NIL_UUID);
-            LOGGER.warn(MARKER, "Player {} has banned item {}", player.getGameProfile().getName(), stack.getDescriptionId());
+            LOGGER.warn(MARKER, "Player {}({}) has banned item {}", player.getGameProfile().getName(), player.getStringUUID(), stack.getDescriptionId());
             return true;
         }
         return false;

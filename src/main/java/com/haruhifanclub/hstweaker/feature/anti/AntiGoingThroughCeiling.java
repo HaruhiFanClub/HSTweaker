@@ -14,7 +14,7 @@ public class AntiGoingThroughCeiling {
 
     private static void warn(ServerPlayer player) {
         player.sendMessage(Anti.MSGH.create("going_through_bedrock_ceiling", false), ChatType.GAME_INFO, Util.NIL_UUID);
-        LOGGER.warn(Anti.MARKER, "Player {} attempts to go through bedrock ceiling at {}", player.getGameProfile().getName(), player.position().toString());
+        LOGGER.warn(Anti.MARKER, "Player {}({}) attempts to go through bedrock ceiling at {}", player.getGameProfile().getName(), player.getStringUUID(), player.position().toString());
     }
 
     @SubscribeEvent
