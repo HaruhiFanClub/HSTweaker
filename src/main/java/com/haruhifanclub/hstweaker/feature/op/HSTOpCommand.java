@@ -31,14 +31,17 @@ public class HSTOpCommand {
 
     protected static final MessageHelper MSGH = new MessageHelper(HSTweaker.MESSAGE_PREFIX, (key) -> HSTweaker.i18n("op." + key));
 
-    public static final CommandNode<CommandSourceStack> NODE = literal("op").requires(CommandSourceUtils.PERMISSION_LEVEL_3)
-        .then(literal("removeRespawnPosition").then(nodeWithPlayersArgument((player) -> player.setRespawnPosition(Level.OVERWORLD, null, 0.0F, false, false))))
+    public static final CommandNode<CommandSourceStack> NODE = literal("op").requires(CommandSourceUtils.PERMISSION_LEVEL_4)
         .then(
-            literal("playTime")
+            literal("player")
+                .then(literal("removeRespawnPosition").then(nodeWithPlayersArgument((player) -> player.setRespawnPosition(Level.OVERWORLD, null, 0.0F, false, false))))
                 .then(
-                    argument("players", EntityArgument.players())
-                        .then(literal("get").executes(HSTOpCommand::getPlayTime))
-                        .then(literal("set").then(argument("time", IntegerArgumentType.integer(0)).executes(HSTOpCommand::setPlayTime)))
+                    literal("playTime")
+                        .then(
+                            argument("players", EntityArgument.players())
+                                .then(literal("get").executes(HSTOpCommand::getPlayTime))
+                                .then(literal("set").then(argument("time", IntegerArgumentType.integer(0)).executes(HSTOpCommand::setPlayTime)))
+                        )
                 )
         )
         .then(
