@@ -2,13 +2,14 @@ package com.haruhifanclub.hstweaker.feature.op;
 
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
+import static org.auioc.mcmod.arnicalib.utils.game.command.CommandHandlers.playerSelfWithMainHand;
+import static org.auioc.mcmod.arnicalib.utils.game.command.CommandNodeUtils.getLastLiteral;
 import java.util.ArrayList;
-import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
-import org.auioc.mcmod.arnicalib.utils.game.CommandUtils;
 import org.auioc.mcmod.arnicalib.utils.game.MessageHelper;
 import org.auioc.mcmod.arnicalib.utils.game.PlayerUtils;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.utils.game.command.CommandSourceUtils;
 import com.haruhifanclub.hstweaker.HSTweaker;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -17,14 +18,12 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.CommandNode;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.selector.EntitySelector;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 
@@ -32,7 +31,7 @@ public class HSTOpCommand {
 
     protected static final MessageHelper MSGH = new MessageHelper(HSTweaker.MESSAGE_PREFIX, (key) -> HSTweaker.i18n("op." + key));
 
-    public static final CommandNode<CommandSourceStack> NODE = literal("op").requires(CommandUtils.PERMISSION_LEVEL_3)
+    public static final CommandNode<CommandSourceStack> NODE = literal("op").requires(CommandSourceUtils.PERMISSION_LEVEL_3)
         .then(literal("removeRespawnPosition").then(nodeWithPlayersArgument((player) -> player.setRespawnPosition(Level.OVERWORLD, null, 0.0F, false, false))))
         .then(
             literal("playTime")
@@ -51,9 +50,9 @@ public class HSTOpCommand {
         .then(gameModeNode())
         .then(
             literal("item")
-                .then(literal("duplicate").executes((ctx) -> mainHandAction(ctx, (player, stack) -> PlayerUtils.giveItem(player, stack.copy()))))
-                .then(literal("fillStack").executes((ctx) -> mainHandAction(ctx, (player, stack) -> stack.setCount(stack.getMaxStackSize()))))
-                .then(literal("fix").executes((ctx) -> mainHandAction(ctx, (player, stack) -> {
+                .then(literal("duplicate").executes((ctx) -> playerSelfWithMainHand(ctx, (player, stack) -> PlayerUtils.giveItem(player, stack.copy()))))
+                .then(literal("fillStack").executes((ctx) -> playerSelfWithMainHand(ctx, (player, stack) -> stack.setCount(stack.getMaxStackSize()))))
+                .then(literal("fix").executes((ctx) -> playerSelfWithMainHand(ctx, (player, stack) -> {
                     if (stack.isDamaged()) stack.setDamageValue(0);
                 })))
         )
@@ -64,10 +63,6 @@ public class HSTOpCommand {
     }
 
 
-    private static String getLastLiteral(CommandContext<CommandSourceStack> ctx) {
-        return ((LiteralCommandNode<CommandSourceStack>) (ctx.getNodes().get(ctx.getNodes().size() - 1).getNode())).getLiteral();
-    }
-
     private static int forEachPlayer(CommandContext<CommandSourceStack> ctx, FailableConsumer<ServerPlayer, CommandSyntaxException> action) throws CommandSyntaxException {
         var players = EntityArgument.getPlayers(ctx, "players");
         for (var player : players) action.accept(player);
@@ -76,17 +71,6 @@ public class HSTOpCommand {
 
     private static RequiredArgumentBuilder<CommandSourceStack, EntitySelector> nodeWithPlayersArgument(FailableConsumer<ServerPlayer, CommandSyntaxException> action) {
         return argument("players", EntityArgument.players()).executes((ctx) -> forEachPlayer(ctx, action));
-    }
-
-    private static int playerAction(CommandContext<CommandSourceStack> ctx, FailableConsumer<ServerPlayer, CommandSyntaxException> action) throws CommandSyntaxException {
-        action.accept(ctx.getSource().getPlayerOrException());
-        return Command.SINGLE_SUCCESS;
-    }
-
-    private static int mainHandAction(CommandContext<CommandSourceStack> ctx, FailableBiConsumer<ServerPlayer, ItemStack, CommandSyntaxException> action) throws CommandSyntaxException {
-        return playerAction(ctx, (player) -> {
-            if (!player.getMainHandItem().isEmpty()) action.accept(player, player.getMainHandItem());
-        });
     }
 
     private static int getPlayTime(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
@@ -122,7 +106,7 @@ public class HSTOpCommand {
     private static int switchAbility(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         final var abilities = ctx.getSource().getPlayerOrException().getAbilities();
 
-        switch (getLastLiteral(ctx)) {
+        switch (getLastLiteral(ctx.getNodes())) {
             case "invulnerable" -> abilities.invulnerable = !abilities.invulnerable;
             case "instabuild" -> abilities.instabuild = !abilities.instabuild;
             case "mayfly" -> abilities.mayfly = !abilities.mayfly;
@@ -139,7 +123,7 @@ public class HSTOpCommand {
                 literal(mode.getName())
                     .executes(
                         (ctx) -> ctx.getSource().getPlayerOrException()
-                            .setGameMode(GameType.byName(getLastLiteral(ctx))) ? 1 : 0
+                            .setGameMode(GameType.byName(getLastLiteral(ctx.getNodes()))) ? 1 : 0
                     )
             );
         }

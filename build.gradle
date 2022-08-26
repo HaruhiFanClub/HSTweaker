@@ -81,6 +81,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     testAnnotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
+    // implementation fileTree(dir: 'libs', include: ['*/*-forgelib.jar', '*/*-api.jar'])
     implementation "org.auioc.mcmod:arnicalib:${minecraft_version}-${arnicalib_version}:forgelib"
 
     if (System.getenv('CI') == null) {
