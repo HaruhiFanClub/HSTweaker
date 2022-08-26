@@ -18,7 +18,7 @@
 
     "hstweaker.itemban.ban": "§cItem %s§c is banned",
 
-    "hstweaker.anti.going_through_bedrock": "§cYou can't get through the bedrock",
+    "hstweaker.anti.going_through_bedrock_ceiling": "§cYou can't get through the bedrock ceiling",
 
     "hstweaker.op.play_time.get": "Play time:",
     "hstweaker.op.play_time.set": "Player %1$s's game time has been set to %2$s"

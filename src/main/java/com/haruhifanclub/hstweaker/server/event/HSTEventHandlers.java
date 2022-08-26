@@ -1,7 +1,7 @@
 package com.haruhifanclub.hstweaker.server.event;
 
 import com.haruhifanclub.hstweaker.feature.anti.AntiDuplication;
-import com.haruhifanclub.hstweaker.feature.anti.AntiGoingThroughBedrock;
+import com.haruhifanclub.hstweaker.feature.anti.AntiGoingThroughCeiling;
 import com.haruhifanclub.hstweaker.feature.itemban.ItemBanEventHandler;
 import com.haruhifanclub.hstweaker.feature.itemshare.ItemShareEventHandler;
 import com.haruhifanclub.hstweaker.feature.world.HSTWorldEventDispatcher;
@@ -14,7 +14,7 @@ public final class HSTEventHandlers {
             HSTUniversalEventHandler.class,
             HSTWorldEventDispatcher.class,
             AntiDuplication.class,
-            AntiGoingThroughBedrock.class,
+            AntiGoingThroughCeiling.class,
             ItemBanEventHandler.class,
             ItemShareEventHandler.class,
         };
