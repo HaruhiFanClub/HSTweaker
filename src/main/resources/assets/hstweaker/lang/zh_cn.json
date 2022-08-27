@@ -18,7 +18,8 @@
 
     "hstweaker.itemban.ban": "§c物品%s§c已被封禁",
 
-    "hstweaker.anti.going_through_bedrock_ceiling": "§c你不能穿越基岩天花板",
+    "hstweaker.anti.go_through_bedrock_ceiling": "§c你不能穿越基岩天花板",
+    "hstweaker.anti.place_block_above_bedrock_ceiling": "§c你不能在基岩天花板上方放置方块",
 
     "hstweaker.op.play_time.get": "玩家游戏时间",
     "hstweaker.op.play_time.set": "已将玩家%1$s的游戏时间设置为%2$s"
