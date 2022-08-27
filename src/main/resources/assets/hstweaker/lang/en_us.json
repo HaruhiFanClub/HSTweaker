@@ -18,8 +18,8 @@
 
     "hstweaker.itemban.ban": "§cItem %s§c is banned",
 
-    "hstweaker.anti.go_through_bedrock_ceiling": "§cYou can't get through the bedrock ceiling",
-    "hstweaker.anti.place_block_above_bedrock_ceiling": "§cYou can't place block above bedrock ceiling",
+    "hstweaker.anti.ceiling.no_through": "§cYou can't get through the bedrock ceiling",
+    "hstweaker.anti.ceiling.no_placing_block_above": "§cYou can't place block above bedrock ceiling",
 
     "hstweaker.op.play_time.get": "Play time:",
     "hstweaker.op.play_time.set": "Player %1$s's game time has been set to %2$s"
