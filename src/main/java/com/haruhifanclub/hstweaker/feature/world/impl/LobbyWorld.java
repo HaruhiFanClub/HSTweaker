@@ -28,7 +28,7 @@ public final class LobbyWorld extends AbstractHSTWorld {
 
     @Override
     public Optional<CommandNode<CommandSourceStack>> createCommandNode() {
-        return Optional.of(HSTWorldCommands.createNode(this, false));
+        return Optional.of(HSTWorldCommands.createNode(this, false, 2400));
     }
 
     @Override

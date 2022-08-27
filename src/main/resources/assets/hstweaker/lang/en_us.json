@@ -4,6 +4,7 @@
     "hstweaker.world._exit": "You are now leaving %s",
     "hstweaker.world._not_in": "You are not in %s",
     "hstweaker.world._already_in": "You are already in room %s",
+    "hstweaker.world._on_enter_cooldown": "Please wait %2$s seconds before trying to enter %1$s%s",
 
     "hstweaker.world.building.name": "Building World",
     "hstweaker.world.building.notice": "",
