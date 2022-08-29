@@ -5,10 +5,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ItemBanEventHandler {
+
+    @SubscribeEvent
+    public static void onAddReloadListenerEvent(final AddReloadListenerEvent event) {
+        event.addListener(new BannedItemsLoader());
+    }
 
     @SubscribeEvent
     public static void onSelectedItemInventoryTick(final ItemInventoryTickEvent.Selected event) {
