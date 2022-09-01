@@ -5,6 +5,7 @@
     "mixins": [],
     "client": [],
     "server": [
+        "server.MixinServerLevel",
         "server.MixinServerPlayer",
         "server.MixinMsgCommand",
         "server.MixinNetherPortalBlock",
