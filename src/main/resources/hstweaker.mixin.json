@@ -4,7 +4,12 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [],
     "client": [],
-    "server": ["server.MixinServerPlayer", "server.MixinMsgCommand"],
+    "server": [
+        "server.MixinServerPlayer",
+        "server.MixinMsgCommand",
+        "server.MixinNetherPortalBlock",
+        "server.MixinZombifiedPiglin"
+    ],
     "injectors": {
         "defaultRequire": 1
     },
