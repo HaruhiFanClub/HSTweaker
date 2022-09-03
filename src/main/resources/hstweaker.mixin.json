@@ -5,6 +5,7 @@
     "mixins": [],
     "client": [],
     "server": [
+        "server.MixinEntity",
         "server.MixinServerLevel",
         "server.MixinServerPlayer",
         "server.MixinMsgCommand",
